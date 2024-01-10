@@ -5,6 +5,8 @@ import { HomePageComponent } from './Components/Home/home-page/home-page.compone
 
 const routes: Routes = [
   {path:'Home', component:HomePageComponent},
+  {path:'', redirectTo:'Home', pathMatch:'full'},
+  {path:'**',redirectTo:'Home'}
   
 ];
 

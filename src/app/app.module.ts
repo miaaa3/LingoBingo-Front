@@ -8,6 +8,7 @@ import { NavbarComponent } from './Components/Home/navbar/navbar.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { FormsModule } from '@angular/forms';
 import { SearchFlashcardComponent } from './Components/search-flashcard/search-flashcard.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SearchFlashcardComponent } from './Components/search-flashcard/search-f
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
