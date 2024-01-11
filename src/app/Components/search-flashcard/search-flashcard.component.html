@@ -1,1 +1,43 @@
-<p>search-flashcard works!</p>
+<section class="space-y-9">
+
+    <div class="flex text-center flex-col space-y-4">
+        <h1 class="font-bold text-5xl">Search QuizIT</h1>
+        <p class="text-xl">Discover with Precision: Explore Infinite Learning Possibilities with us!</p>
+    </div>
+
+    <!-- start search bar -->
+   <div class="flex justify-center">   
+        <form class="flex items-center">   
+            <label for="simple-search" class="sr-only">Search</label>
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="search-icon size-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="text" id="simple-search" class="bg-white border border-gray-100 text-base rounded-lg outline-none shadow-md focus:ring-gray-300 focus:border-gray-700 block w-[600px] h-12 ps-10 p-2 " placeholder="Search for your techy quiz adventure..." required>
+            </div>
+        </form>
+    </div>
+    <!-- end search bar -->
+
+    <!-- start search cards -->
+    <div class="grid grid-cols-2 *:cursor-pointer *:p-5 *:rounded-lg *:shadow-md *:justify-between gap-10">
+        <div class=" flex items-center  gap-4 bg-perano-200 ">
+            <h3 class="w-1/2">DevOps</h3>
+            <img src="/assets/images/devopslogo.png" class="w-32">
+        </div>
+        <div class="flex items-center gap-4 bg-mustard-200">
+            <h3  class="w-1/2">Linux</h3>
+            <img src="/assets/images/linux-logo.png" class="w-20 ">
+        </div>
+        <div class="bg-perano-400">
+            <h3>Networking</h3>
+        </div>
+        <div class="bg-rose-400">
+            <h3>Programming</h3>
+        </div>
+    </div>
+    <!-- start search cards -->
+
+</section>
