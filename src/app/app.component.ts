@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { Difficulty } from './Models/enums/difficulty.enum';
+import { QuizCategory } from './Models/enums/quiz-category.enum';
 import { Question } from './Models/question.model';
+import { GenerateQuizService } from './Services/generate-quiz.service';
 import { QuizApiService } from './Services/quiz-api.service';
 
 @Component({
@@ -10,23 +13,57 @@ import { QuizApiService } from './Services/quiz-api.service';
 })
 export class AppComponent implements OnInit{
   questions: Question[] = [];
-  constructor(private test:QuizApiService){}
+  questionsByCategory: Question[] = [];
+  questionsByDifficulty: Question[] = [];
+  testQuiz: Question[] = [];
+  quizzesByCategory : Question[]=[] 
+
+  constructor(private test:QuizApiService, private generateQuiz : GenerateQuizService){}
+  
+  title = 'QuizIt';
+
   ngOnInit(): void {
     this.loadQuestions()
   }
 
   loadQuestions(): void {
-    this.test.getQuestions().subscribe(
-      (data) => {
-        this.questions = data;
-        console.warn(this.questions)
-      },
-      (error) => {
-        console.error('Error loading questions:', error);
-      }
-    );
+    // this.test.getQuestions().subscribe(
+    //   (data) => {
+    //     this.questions = data;
+    //     console.warn(this.questions)
+    //   },
+    //   (error) => {
+    //     console.error('Error loading questions:', error);
+    //   }
+    // );
+    // this.test.getQuestionsByCategory('Linux').subscribe(
+    //   (data) => {
+    //     this.questionsByCategory = data;
+    //     console.warn(this.questionsByCategory)
+    //   },
+    //   (error) => {
+    //     console.error('Error loading questions:', error);
+    //   }
+    // );
+    // this.test.getQuestionsByDifficulty(Difficulty.Medium).subscribe(
+    //   (data) => {
+    //     this.questionsByDifficulty = data;
+    //     console.warn(this.questionsByDifficulty)
+    //   },
+    //   (error) => {
+    //     console.error('Error loading questions:', error);
+    //   }
+    // )
+
+    // this.generateQuiz.generateQuizzes().subscribe(data => {
+    //   this.testQuiz = data;
+    //   console.warn(this.testQuiz)
+    // });
+    this.generateQuiz.generateQuizzesForCategory(QuizCategory.CMS).subscribe(data => {
+      this.quizzesByCategory = data;
+      console.warn(this.quizzesByCategory)
+    });
   }
 
-  title = 'QuizIt';
 
 }
