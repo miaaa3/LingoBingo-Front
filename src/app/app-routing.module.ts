@@ -6,6 +6,8 @@ import { SearchFlashcardComponent } from './Components/search-flashcard/search-f
 
 const routes: Routes = [
   {path:'Home', component:HomePageComponent},
+  {path:'', redirectTo:'Home', pathMatch:'full'},
+  {path:'**',redirectTo:'Home'},
   {path:'Search', component:SearchFlashcardComponent},
 
   
