@@ -22,21 +22,12 @@
     <!-- end search bar -->
 
     <!-- start search cards -->
-    <div class="grid grid-cols-2 *:cursor-pointer *:p-5 *:rounded-lg *:shadow-md *:justify-between gap-10">
-        <div class=" flex items-center  gap-4 bg-perano-200 ">
-            <h3 class="w-1/2">DevOps</h3>
-            <img src="/assets/images/devopslogo.png" class="w-32">
+    <div class="grid grid-cols-3 *:cursor-pointer *:p-5 *:rounded-lg *:shadow-md *:justify-between gap-10">
+        <div  *ngFor="let category of categories;let i = index" class="flex items-center gap-4" [ngStyle]="{'background-color': sweetColors[i % sweetColors.length]}">
+            <h3 class="w-1/2">{{category}}</h3>
+            <img src="/assets/images/search/{{ category }}.png" class="w-20">
         </div>
-        <div class="flex items-center gap-4 bg-mustard-200">
-            <h3  class="w-1/2">Linux</h3>
-            <img src="/assets/images/linux-logo.png" class="w-20 ">
-        </div>
-        <div class="bg-perano-400">
-            <h3>Networking</h3>
-        </div>
-        <div class="bg-rose-400">
-            <h3>Programming</h3>
-        </div>
+        
     </div>
     <!-- start search cards -->
 
