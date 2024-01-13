@@ -26,7 +26,8 @@ import { DisplayQuizComponent } from './Components/Display-quiz/display-quiz.com
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

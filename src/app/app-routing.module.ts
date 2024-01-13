@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './Components/Home/home-page/home-page.component';
-import { SearchFlashcardComponent } from './Components/Search-flashcard/search-flashcard.component';
 import { AllQuizzesComponent } from './Components/All-quizzes/all-quizzes.component';
+import { SearchFlashcardComponent } from './Components/Search-flashcard/search-flashcard.component';
 
 
 const routes: Routes = [

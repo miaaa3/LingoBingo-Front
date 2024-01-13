@@ -1,4 +1,4 @@
-<nav class="flex justify-between items-center gap-10 p-3">
+<nav  class="flex justify-between items-center gap-10 p-3">
 
     <div class="flex items-center gap-5 font-medium">
         <h2 class="text-2xl  text-blue-500 ">QuizIT</h2>
@@ -30,13 +30,19 @@
             </button>
         </div>
 
-        <div>
-            <button type="button" class="flex bg-blue-500 text-white rounded-full border md:me-0 focus:ring-4 focus:ring-gray-300 active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" >
-                <svg class="size-9 p-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                </svg>
+        <div [style.zIndex]="zIndex" (click.away)="closeDropdown()" class="relative" [attr.x-data]="{ open: false }">
+            <button type="button" (click)="toggleDropdown()" class="flex bg-blue-500 text-white rounded-full border md:me-0 focus:ring-4 focus:ring-gray-300 active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button">
+              <svg class="size-9 p-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+              </svg>
             </button>
-        </div>
+            <div *ngIf="open" [@dropdownAnimation]="'visible'" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+              <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+                <a (click)="closeDropdown()" class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" routerLink="/Quiz/create-quiz" >Add Quiz</a>
+                
+              </div>
+            </div>
+          </div>
         
         <div>
             <button type="button" class="flex text-sm border rounded-full md:me-0 focus:ring-4  active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
