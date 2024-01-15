@@ -1,0 +1,144 @@
+<hr class="border-t border-gray-100">
+<div [ngClass]="{'fixed-header': isFixedHeaderVisible, 'fixed-header-hidden': !isFixedHeaderVisible}" class="px-48">
+    <div class="flex justify-between items-center my-8">
+      <h1 class="text-xl font-bold text-gray-700">Create a new quiz</h1>
+      <button
+        type="button"
+        [disabled]="!quizForm.valid"
+        [class.bg-blue-500]="quizForm.valid"
+        [class.bg-gray-200]="!quizForm.valid"
+        class="text-white px-4 py-2 rounded-lg"
+      >
+        Create
+      </button>
+    </div>
+  </div>
+    <div class="relative min-h-screen py-16 px-48 bg-[#f6f7fb]">
+    <div class="flex justify-between items-center mb-16">
+      <h1 class="text-xl font-bold text-gray-700">Create a new quiz</h1>
+      <button
+        type="button"
+        [disabled]="!quizForm.valid"
+        [class.bg-blue-500]="quizForm.valid"
+        [class.bg-gray-200]="!quizForm.valid"
+        class="text-white px-4 py-2 rounded-lg"
+      >
+        Create
+      </button>
+    </div>
+  
+    <form *ngIf="quizForm" [formGroup]="quizForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="question" class="block text-gray-700 text-sm font-bold mb-2">Question</label>
+        <textarea
+          id="question"
+          formControlName="question"
+          placeholder="Enter your question"
+          class="w-full border rounded-md p-2"
+        ></textarea>
+      </div>
+  
+      <div class="mb-4">
+        <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Enter a description"
+          class="w-full border rounded-md p-2"
+        ></textarea>
+      </div>
+  
+      <div class="mb-4" formGroupName="answers">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Answers</label>
+        <div class="grid grid-cols-2 gap-4">
+          <div *ngFor="let answer of ['a', 'b', 'c', 'd', 'e', 'f']">
+            <label [for]="'answer_' + answer" class="block text-gray-700 text-sm font-bold mb-1">
+              Answer {{ answer.toUpperCase() }}
+            </label>
+            <input [id]="'answer_' + answer" formControlName="answer_{{ answer }}" class="w-full border rounded-md p-2">
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="multipleCorrectAnswers" class="block text-gray-700 text-sm font-bold mb-2">Multiple Correct Answers</label>
+        <input id="multipleCorrectAnswers" formControlName="multiple_correct_answers" type="checkbox">
+      </div>
+
+      <div class="mb-4" formGroupName="correct_answers">
+        <label class="block text-gray-700 text-sm font-bold mb-3">Correct Answers</label>
+        <div class="grid grid-cols-2 gap-4">
+          <div *ngFor="let correctAnswer of ['a', 'b', 'c', 'd', 'e', 'f']">
+            <label [for]="'correct_answer_' + correctAnswer" class="block text-gray-700 text-sm font-bold mb-1">
+              Correct Answer {{ correctAnswer.toUpperCase() }}
+            </label>
+            <input [id]="'correct_answer_' + correctAnswer" formControlName="answer_{{ correctAnswer }}_correct" type="checkbox">
+          </div>
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="explanation" class="block text-gray-700 text-sm font-bold mb-2">Explanation</label>
+        <textarea
+          id="explanation"
+          formControlName="explanation"
+          placeholder="Enter an explanation"
+          class="w-full border rounded-md p-2"
+        ></textarea>
+      </div>
+  
+      <div class="mb-4">
+        <label for="tip" class="block text-gray-700 text-sm font-bold mb-2">Tip</label>
+        <textarea
+          id="tip"
+          formControlName="tip"
+          placeholder="Enter a tip"
+          class="w-full border rounded-md p-2"
+        ></textarea>
+      </div>
+  
+      <div class="mb-4">
+        <label for="tags" class="block text-gray-700 text-sm font-bold mb-2">Tags</label>
+        <input id="tags" formControlName="tags" placeholder="Enter tags" class="w-full border rounded-md p-2">
+      </div>
+  
+      <div class="mb-4">
+        <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category</label>
+        <select id="category" formControlName="category" class="w-full border rounded-md p-2">
+            <!-- <option *ngFor="let category of categories" [value]="category">chaj {{ category }}</option> -->
+          <option value="PHP">PHP</option>
+          <option value="Code">Code</option>
+          <option value="Linux">Linux</option>
+          <option value="CMS">CMS</option>
+          <option value="Docker">Docker</option>
+          <option value="HTML">HTML</option>
+          <option value="SQL">SQL</option>
+          <option value="WordPress">WordPress</option>
+          <option value="BASH">BASH</option>
+          <option value="DevOps">DevOps</option>
+          <option value="Kubernetes">Kubernetes</option>
+        </select>
+      </div>
+      
+  
+      <div class="mb-4">
+        <label for="difficulty" class="block text-gray-700 text-sm font-bold mb-2">Difficulty</label>
+        <select id="difficulty" formControlName="difficulty" class="w-full border rounded-md p-2">
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
+      <button
+      type="submit"
+      [disabled]="!quizForm.valid"
+      [class.bg-blue-500]="quizForm.valid"
+      [class.bg-gray-400]="!quizForm.valid"
+      class="text-white px-4 py-2 rounded"
+    >
+      Create
+    </button>
+    </form>
+  </div>
+  
+  

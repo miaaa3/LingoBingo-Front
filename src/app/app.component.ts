@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { Difficulty } from './Models/enums/difficulty.enum';
 import { QuizCategory } from './Models/enums/quiz-category.enum';
 import { Question } from './Models/question.model';
@@ -17,10 +18,15 @@ export class AppComponent implements OnInit{
   questionsByDifficulty: Question[] = [];
   testQuiz: Question[] = [];
   quizzesByCategory : Question[]=[] 
-
-  constructor(private test:QuizApiService, private generateQuiz : GenerateQuizService){}
   
   title = 'QuizIt';
+
+  constructor(private test:QuizApiService, private generateQuiz : GenerateQuizService,private router: Router) {}
+
+  shouldDisplay(): boolean {
+    const currentRoute = this.router.url;
+    return !currentRoute.includes('/Create-quiz');
+  }
 
   ngOnInit(): void {
     this.loadQuestions()
@@ -65,5 +71,5 @@ export class AppComponent implements OnInit{
     });
   }
 
-
+  
 }
