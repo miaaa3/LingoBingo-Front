@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { LocalService } from 'src/app/Services/local.service';
+import { BehaviorSubject, from, Observable } from 'rxjs';
 
 
 @Component({
@@ -23,11 +25,31 @@ export class NavbarComponent {
   zIndex = 1000;
   open = false;
 
+  zIndexForProfile = 1000;
+  openForProfile = false;
+  isUser: BehaviorSubject<boolean>;
+
+  constructor(private local: LocalService) {
+    this.isUser = new BehaviorSubject<boolean>(this.local.getData("userApiKey") !== "");
+  }
+
+  logout(): void {
+    this.local.removeData("userApiKey");     
+    this.isUser.next(false); 
+  }
   toggleDropdown(): void {
     this.open = !this.open;
   }
 
   closeDropdown(): void {
     this.open = false;
+  }
+
+  toggleDropdownProfile(): void {
+    this.openForProfile = !this.openForProfile; 
+  }
+
+  closeDropdownProfile(): void {
+    this.openForProfile = false; 
   }
 }

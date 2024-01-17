@@ -12,9 +12,13 @@ const routes: Routes = [
   {path:'Home', component:HomePageComponent},
   {path:'Search', component:SearchFlashcardComponent},
   {path:'All-quizzes', component:AllQuizzesComponent},
-  {path:'Create-quiz', component:CreateQuizComponent},
+  {
+    path:'Create-quiz', component:CreateQuizComponent,
+  },
   {path:'login', component:LoginComponent},
-  {path:'Register', component:RegisterComponent},
+  {
+    path:'Register', component:RegisterComponent,
+  },
 
   {path:'', redirectTo:'Home', pathMatch:'full'},
   {path:'**',redirectTo:'Home'},

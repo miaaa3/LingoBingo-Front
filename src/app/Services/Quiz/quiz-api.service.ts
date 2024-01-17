@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 
 import { catchError, map, Observable, of, OperatorFunction } from 'rxjs';
-import { Question } from '../Models/question.model'; 
+import { Question } from '../../Models/question.model'; 
 import { ApiEndPoints } from './api-endpoints.service';
-import { Difficulty } from '../Models/enums/difficulty.enum';
+import { Difficulty } from '../../Models/enums/difficulty.enum';
 
 @Injectable({
   providedIn: 'root',

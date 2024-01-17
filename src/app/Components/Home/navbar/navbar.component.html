@@ -1,57 +1,68 @@
-<nav  class="flex justify-between items-center gap-10 p-3">
-
+<nav class="flex justify-between items-center gap-10 p-3">
     <div class="flex items-center gap-5 font-medium">
-        <h2 class="text-2xl  text-blue-500 ">QuizIT</h2>
-        <div>
-            Your library
-        </div>
+      <h2 class="text-2xl text-blue-500">QuizIT</h2>
+      <div>Your library</div>
     </div>
-
-    <div class="w-1/2 ">   
-        <form class="flex items-center">   
-            <label for="simple-search" class="sr-only">Search</label>
-            <div class="relative w-full">
-                <div class="absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="search-icon size-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                      </svg>
-                </div>
-                <input type="text" id="simple-search" class="bg-gray-50 border border-gray-100 text-sm rounded-full outline-none  focus:ring-gray-300 focus:border-gray-700 block w-full ps-10 p-2 " placeholder="Search for your techy quiz adventure..." required>
-            </div>
-        </form>
-    </div>
-
-    <div class="flex gap-2">
-        <div>
-            <button type="button" class="flex text-sm rounded-full border md:me-0 focus:ring-4 focus:ring-gray-300 active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" >
-                <svg class="size-9 p-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 21">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 3.464V1.1m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175C15 15.4 15 16 14.462 16H1.538C1 16 1 15.4 1 14.807c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 8 3.464ZM4.54 16a3.48 3.48 0 0 0 6.92 0H4.54Z"/>
-                </svg>
-            </button>
-        </div>
-
-        <div [style.zIndex]="zIndex" (click.away)="closeDropdown()" class="relative" [attr.x-data]="{ open: false }">
-            <button type="button" (click)="toggleDropdown()" class="flex bg-blue-500 text-white rounded-full border md:me-0 focus:ring-4 focus:ring-gray-300 active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button">
-              <svg class="size-9 p-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-              </svg>
-            </button>
-            <div *ngIf="open" [@dropdownAnimation]="'visible'" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
-              <div class=" bg-white rounded-md shadow dark-mode:bg-gray-800">
-                <a (click)="closeDropdown()" class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-t-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" routerLink="/Create-quiz" >New Quiz</a>
-                <a (click)="closeDropdown()" class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-b-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline" routerLink="" >new Set Of Flashcards</a>
-                
-              </div>
-            </div>
+  
+    <div class="w-1/2">
+      <form class="flex items-center">
+        <label for="simple-search" class="sr-only">Search</label>
+        <div class="relative w-full">
+          <div class="absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none">
+            <svg class="search-icon size-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
           </div>
-        
-        <div>
-            <button type="button" class="flex text-sm border rounded-full md:me-0 focus:ring-4  active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                <img class="size-9 rounded-full object-cover" src="/assets/images/Profile.jpg" alt="user photo">
-            </button>
+          <input type="text" id="simple-search" class="bg-gray-50 border border-gray-100 text-sm rounded-full outline-none focus:ring-gray-300 focus:border-gray-700 block w-full ps-10 p-2" placeholder="Search for your techy quiz adventure..." required>
         </div>
-       
-     
-        
+      </form>
     </div>
-</nav>
+  
+    <div class="flex gap-2">
+      <div>
+        <button type="button" class="flex text-sm rounded-full border md:me-0 focus:ring-4 focus:ring-gray-300 active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button">
+          <svg class="size-9 p-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 21">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 3.464V1.1m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175C15 15.4 15 16 14.462 16H1.538C1 16 1 15.4 1 14.807c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 8 3.464ZM4.54 16a3.48 3.48 0 0 0 6.92 0H4.54Z"/>
+          </svg>
+        </button>
+      </div>
+  
+      <div [style.zIndex]="zIndex" (click.away)="closeDropdown()" class="relative" [attr.x-data]="{ open: false }">
+        <button type="button" (click)="toggleDropdown()" class="flex bg-blue-500 text-white rounded-full border md:me-0 focus:ring-4 focus:ring-gray-300 active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button">
+          <svg class="size-9 p-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+          </svg>
+        </button>
+        <div *ngIf="open" [@dropdownAnimation]="'visible'" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+          <div class="bg-white rounded-md shadow dark-mode:bg-gray-800">
+            <a (click)="closeDropdown()" class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-t-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" routerLink="/Create-quiz">New Quiz</a>
+            <a (click)="closeDropdown()" class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-b-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline" routerLink="">New Set Of Flashcards</a>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="isUser | async" [style.zIndex]="zIndexForProfile" (click.away)="closeDropdownProfile()" [attr.x-data]="{ openForProfile: false }">
+        <button type="button" (click)="toggleDropdownProfile()" class="flex text-sm border rounded-full md:me-0 focus:ring-4  active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+          <img class="size-9 rounded-full object-cover" src="/assets/images/Profile.jpg" alt="user photo">
+        </button>
+        <div *ngIf="openForProfile" [@dropdownAnimation]="'visible'" class="absolute right-3 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-28">
+          <div class="bg-white rounded-md shadow dark-mode:bg-gray-800">
+            <a (click)="logout()" class="flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+              Log out
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather ml-2 feather-log-out">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="flex mx-2 *:mx-1" *ngIf="!(isUser | async)">
+        <button routerLink="/login" class="py-2 px-3 rounded-lg hover:bg-gray-100 text-gray-800 text-sm font-medium">Log in</button>
+        <button routerLink="/Register" class="py-2 px-3 rounded-lg bg-amber-300 hover:bg-amber-200 text-sm text-gray-800 font-medium">Sign up</button>
+      </div>
+    </div>
+  </nav>
+  

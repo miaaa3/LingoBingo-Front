@@ -1,15 +1,77 @@
-import { Component } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LocalService } from 'src/app/Services/local.service';
+import { RestApiService } from 'src/app/Services/rest-api.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  username: string = '';
-  password: string = '';
+export class LoginComponent implements OnInit{
+    
+  loginForm!: FormGroup;
+  showPassword: boolean = false;
+  isLoading = false;
 
-  login() {
-    console.log('Login clicked!');
+  constructor(
+    private api: RestApiService,
+    private fb: FormBuilder,
+    private router: Router,
+    private local:LocalService,
+    ) {
+    
+  }
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: [null, <any>[Validators.required, Validators.email]],
+      password: [null, <any>[Validators.required, Validators.minLength(8)]],
+    });
+  }
+
+  get passwordControl() {
+    return this.loginForm.get('password');
+  }
+  async login() {
+    this.isLoading = true;
+    this.api.httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            })
+          };
+    this.api.login(this.loginForm.value).subscribe(
+      res => {
+        this.api.token = res['access_token'];
+        this.local.saveData("userApiKey",this.api.token!)
+
+        this.api.httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + this.api.token
+          })
+        };
+        this.api.user = res['user'];
+        this.router.navigate(['/Home']);
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
+      
+        
+      },
+      err =>{
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
+      
+      }
+    );
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

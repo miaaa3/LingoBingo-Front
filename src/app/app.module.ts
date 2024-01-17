@@ -15,6 +15,12 @@ import { CreateQuizComponent } from './Components/create-quiz/create-quiz.compon
 import { FooterComponent } from './Components/Home/footer/footer.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSliderModule} from '@angular/material/slider';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +42,10 @@ import { RegisterComponent } from './Components/register/register.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatSliderModule,
+    MatButtonModule,
+    MatIconModule,
 
   ],
   providers: [],

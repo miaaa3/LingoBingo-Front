@@ -1,11 +1,18 @@
-<app-navbar ></app-navbar>
-<router-outlet *ngIf="!shouldDisplay()"></router-outlet>
-<body *ngIf="shouldDisplay()" class="flex min-h-screen gap-6 mx-2">
-    <app-sidebar class="w-[15%]" ></app-sidebar>
-    <div class="flex-grow w-[85%] ">
-        <div class="relative overflow-x-auto p-5 bg-[#f6f7fb] rounded-xl">
-            <router-outlet></router-outlet>
+<div *ngIf="!onlyOneComponent()">
+    <app-navbar ></app-navbar>
+    <router-outlet *ngIf="!shouldDisplay()"></router-outlet>
+    <body *ngIf="shouldDisplay()" class="flex min-h-screen gap-6 mr-2">
+        <app-sidebar class="w-[15%]" ></app-sidebar>
+        <div class="flex-grow w-[85%] ">
+            <div class="relative overflow-x-auto p-5 bg-[#f6f7fb] rounded-xl">
+                <router-outlet></router-outlet>
+            </div>
         </div>
-    </div>
-</body>
-<app-footer *ngIf="shouldDisplay()"></app-footer>
+    </body>
+    <app-footer *ngIf="shouldDisplay()"></app-footer>
+</div>
+
+<!-- to display a pages without components -->
+<div *ngIf="onlyOneComponent()">
+    <router-outlet></router-outlet>
+</div>

@@ -15,6 +15,7 @@ export class CreateQuizComponent implements OnInit{
   constructor(private fb: FormBuilder) {
     this.quizForm = this.fb.group({});
   }
+  
 
   ngOnInit(): void {
     this.initForm()

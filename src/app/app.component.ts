@@ -4,8 +4,11 @@ import { Router } from '@angular/router';
 import { Difficulty } from './Models/enums/difficulty.enum';
 import { QuizCategory } from './Models/enums/quiz-category.enum';
 import { Question } from './Models/question.model';
-import { GenerateQuizService } from './Services/generate-quiz.service';
-import { QuizApiService } from './Services/quiz-api.service';
+import { GenerateQuizService } from './Services/Quiz/generate-quiz.service';
+import { LocalService } from './Services/local.service';
+import { QuizApiService } from './Services/Quiz/quiz-api.service';
+import { RestApiService } from './Services/rest-api.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -21,16 +24,48 @@ export class AppComponent implements OnInit{
   
   title = 'QuizIt';
 
-  constructor(private test:QuizApiService, private generateQuiz : GenerateQuizService,private router: Router) {}
-
+  constructor(
+    private test:QuizApiService,
+     private generateQuiz : GenerateQuizService,
+     private router: Router,
+     private api : RestApiService,
+     private local:LocalService
+    ) {}
+  
   shouldDisplay(): boolean {
     const currentRoute = this.router.url;
-    const endpoints = ['/Create-quiz', '/login', '/Register'];
+    const endpoints = ['/Create-quiz'];
     return !endpoints.some(endpoint => currentRoute.includes(endpoint));
   }
 
+  onlyOneComponent(){
+    const currentRoute = this.router.url;
+    const endpoints = [ '/login', '/Register'];
+    return endpoints.some(endpoint => currentRoute.includes(endpoint));
+  }
+
   ngOnInit(): void {
     this.loadQuestions()
+
+    console.warn("passed from here")
+    console.warn("after : "+this.local.getData("userApiKey"))
+    this.api.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + this.local.getData("userApiKey")
+      })
+    };
+    this.api.profile().subscribe(
+      res => {
+        if(res['message']==null){
+          this.local.removeData("userApiKey")
+        }
+      },
+      err => {
+        this.local.removeData("userApiKey")
+      }
+    );
   }
 
   loadQuestions(): void {
