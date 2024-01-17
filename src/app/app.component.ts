@@ -25,7 +25,8 @@ export class AppComponent implements OnInit{
 
   shouldDisplay(): boolean {
     const currentRoute = this.router.url;
-    return !currentRoute.includes('/Create-quiz');
+    const endpoints = ['/Create-quiz', '/login', '/Register'];
+    return !endpoints.some(endpoint => currentRoute.includes(endpoint));
   }
 
   ngOnInit(): void {

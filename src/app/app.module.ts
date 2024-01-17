@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AllQuizzesComponent } from './Components/All-quizzes/all-quizzes.component';
 import { DisplayQuizComponent } from './Components/Display-quiz/display-quiz.component';
 import { CreateQuizComponent } from './Components/create-quiz/create-quiz.component';
+import { FooterComponent } from './Components/Home/footer/footer.component';
+import { LoginComponent } from './Components/login/login.component';
+import { RegisterComponent } from './Components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +25,17 @@ import { CreateQuizComponent } from './Components/create-quiz/create-quiz.compon
     SearchFlashcardComponent,
     AllQuizzesComponent,
     DisplayQuizComponent,
-    CreateQuizComponent
+    CreateQuizComponent,
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
 
   ],
   providers: [],

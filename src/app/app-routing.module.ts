@@ -4,6 +4,8 @@ import { HomePageComponent } from './Components/Home/home-page/home-page.compone
 import { AllQuizzesComponent } from './Components/All-quizzes/all-quizzes.component';
 import { SearchFlashcardComponent } from './Components/Search-flashcard/search-flashcard.component';
 import { CreateQuizComponent } from './Components/create-quiz/create-quiz.component';
+import { LoginComponent } from './Components/login/login.component';
+import { RegisterComponent } from './Components/register/register.component';
 
 
 const routes: Routes = [
@@ -11,6 +13,9 @@ const routes: Routes = [
   {path:'Search', component:SearchFlashcardComponent},
   {path:'All-quizzes', component:AllQuizzesComponent},
   {path:'Create-quiz', component:CreateQuizComponent},
+  {path:'login', component:LoginComponent},
+  {path:'Register', component:RegisterComponent},
+
   {path:'', redirectTo:'Home', pathMatch:'full'},
   {path:'**',redirectTo:'Home'},
   
