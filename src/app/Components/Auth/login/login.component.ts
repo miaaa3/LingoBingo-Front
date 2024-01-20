@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit{
   get passwordControl() {
     return this.loginForm.get('password');
   }
+  
   async login() {
     this.isLoading = true;
     this.api.httpOptions = {

@@ -29,4 +29,13 @@ export class RestApiService {
     const url = `${apiUrl}/profile`;
     return this.http.get(url, this.httpOptions).pipe();
   }
+  resetPassword(data:any): Observable<any> {
+    const url = `${apiUrl}/change-password`;
+    return this.http.post(url, data,this.httpOptions).pipe();
+  }
+
+  sendPasswordResetEmail(data:any): Observable<any> {
+    const url = `${apiUrl}/send-reset-password-link`;
+    return this.http.post(url, data).pipe();
+  }
 }

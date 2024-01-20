@@ -40,14 +40,13 @@ export class AppComponent implements OnInit{
 
   onlyOneComponent(){
     const currentRoute = this.router.url;
-    const endpoints = [ '/login', '/Register'];
+    const endpoints = [ '/login', '/Register', 'reset-password','forgot-password'];
     return endpoints.some(endpoint => currentRoute.includes(endpoint));
   }
 
   ngOnInit(): void {
     this.loadQuestions()
 
-    console.warn("passed from here")
     console.warn("after : "+this.local.getData("userApiKey"))
     this.api.httpOptions = {
       headers: new HttpHeaders({
@@ -58,7 +57,7 @@ export class AppComponent implements OnInit{
     };
     this.api.profile().subscribe(
       res => {
-        if(res['message']==null){
+        if(res['id']==null){
           this.local.removeData("userApiKey")
         }
       },

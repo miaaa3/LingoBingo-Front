@@ -33,6 +33,8 @@ export class NavbarComponent {
     this.isUser = new BehaviorSubject<boolean>(this.local.getData("userApiKey") !== "");
   }
 
+  
+
   logout(): void {
     this.local.removeData("userApiKey");     
     this.isUser.next(false); 

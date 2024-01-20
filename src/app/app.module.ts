@@ -13,13 +13,13 @@ import { AllQuizzesComponent } from './Components/All-quizzes/all-quizzes.compon
 import { DisplayQuizComponent } from './Components/Display-quiz/display-quiz.component';
 import { CreateQuizComponent } from './Components/create-quiz/create-quiz.component';
 import { FooterComponent } from './Components/Home/footer/footer.component';
-import { LoginComponent } from './Components/login/login.component';
-import { RegisterComponent } from './Components/register/register.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatSliderModule} from '@angular/material/slider';
+import { LoginComponent } from './Components/Auth/login/login.component';
+import { RegisterComponent } from './Components/Auth/register/register.component';
 
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { ResetPasswordComponent } from './Components/Auth/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgot-password.component';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr, ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -34,7 +34,9 @@ import { MatIconModule } from '@angular/material/icon';
     CreateQuizComponent,
     FooterComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -42,13 +44,14 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule,
-    MatSliderModule,
-    MatButtonModule,
-    MatIconModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
 
   ],
-  providers: [],
+  providers: [
+    provideAnimations(), // required animations providers
+    provideToastr(), 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

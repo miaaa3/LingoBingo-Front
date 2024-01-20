@@ -45,8 +45,11 @@
         <button type="button" (click)="toggleDropdownProfile()" class="flex text-sm border rounded-full md:me-0 focus:ring-4  active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
           <img class="size-9 rounded-full object-cover" src="/assets/images/Profile.jpg" alt="user photo">
         </button>
-        <div *ngIf="openForProfile" [@dropdownAnimation]="'visible'" class="absolute right-3 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-28">
+        <div *ngIf="openForProfile" [@dropdownAnimation]="'visible'" class="absolute right-3 w-44 mt-2 origin-top-right rounded-md shadow-lg md:w-28">
           <div class="bg-white rounded-md shadow dark-mode:bg-gray-800">
+            <a class="flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" routerLink="reset-password">
+              Change password
+            </a>
             <a (click)="logout()" class="flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
               Log out
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather ml-2 feather-log-out">
