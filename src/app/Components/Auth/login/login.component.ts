@@ -2,8 +2,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalService } from 'src/app/Services/local.service';
-import { RestApiService } from 'src/app/Services/rest-api.service';
+import { ToastrService } from 'ngx-toastr';
+import { LocalService } from 'src/app/Services/Auth/local.service';
+import { RestApiService } from 'src/app/Services/Auth/rest-api.service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,8 @@ export class LoginComponent implements OnInit{
     private fb: FormBuilder,
     private router: Router,
     private local:LocalService,
+    private toastr: ToastrService,
+
     ) {
     
   }
@@ -28,7 +31,9 @@ export class LoginComponent implements OnInit{
     this.loginForm = this.fb.group({
       email: [null, <any>[Validators.required, Validators.email]],
       password: [null, <any>[Validators.required, Validators.minLength(8)]],
-    });
+      
+    } ,{ validators: [Validators.required] }
+    );
   }
 
   get passwordControl() {
@@ -56,6 +61,7 @@ export class LoginComponent implements OnInit{
           })
         };
         this.api.user = res['user'];
+        this.toastr.success('Loged in successfully.', 'Success');
         this.router.navigate(['/Home']);
         setTimeout(() => {
           this.isLoading = false;
@@ -64,9 +70,8 @@ export class LoginComponent implements OnInit{
         
       },
       err =>{
-        setTimeout(() => {
-          this.isLoading = false;
-        }, 2000);
+        this.toastr.error('Error during login.', 'Error');
+        this.isLoading = false;
       
       }
     );
