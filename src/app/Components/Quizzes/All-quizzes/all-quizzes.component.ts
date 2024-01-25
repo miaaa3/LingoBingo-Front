@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { getQuizCategories } from 'src/app/Models/enums/quiz-category.enum';
+import { getQuizCategories } from 'src/app/Models/enums/category.enum';
 
 @Component({
   selector: 'app-all-quizzes',

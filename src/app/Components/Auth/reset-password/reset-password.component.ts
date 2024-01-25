@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { LocalService } from 'src/app/Services/local.service';
-import { RestApiService } from 'src/app/Services/rest-api.service';
+import { LocalService } from 'src/app/Services/Auth/local.service';
+import { RestApiService } from 'src/app/Services/Auth/rest-api.service';
 
 @Component({
   selector: 'app-reset-password',

@@ -23,9 +23,9 @@
 
     <!-- start search cards -->
     <div class="grid grid-cols-3 *:cursor-pointer *:p-5 *:rounded-lg *:shadow-md *:justify-between gap-10">
-        <div  *ngFor="let img of imgs;let i = index" class="flex items-center gap-4" [ngStyle]="{'background-color': sweetColors[i % sweetColors.length]}">
+        <div  *ngFor="let category of categories ;let i = index" class="flex items-center gap-4" [ngStyle]="{'background-color': backgroundColor[category]}" [routerLink]="'/Category-content/' + category">
             <h3 class="w-1/2">{{categories[i]}}</h3>
-            <img  [src]="img.src" class="w-20">
+            <img src="/assets/images/search/{{ category }}.png" class="w-20">
         </div>
         
     </div>
