@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { getQuizCategories } from 'src/app/Models/enums/quiz-category.enum';
+import { getQuizCategories } from 'src/app/Models/enums/category.enum';
 import { Question } from 'src/app/Models/question.model';
 
 

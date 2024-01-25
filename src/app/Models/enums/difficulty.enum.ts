@@ -1,5 +1,8 @@
 export enum Difficulty {
-    Easy = 'easy',
-    Medium = 'medium',
-    Hard = 'hard',
+    Easy = 'Easy',
+    Medium = 'Medium',
+    Hard = 'Hard',
 }
+export function getDifficulties(): string[] {
+    return Object.values(Difficulty);
+  }

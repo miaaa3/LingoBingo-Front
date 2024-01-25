@@ -9,9 +9,9 @@ import { SidebarComponent } from './Components/Home/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFlashcardComponent } from './Components/Search-flashcard/search-flashcard.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AllQuizzesComponent } from './Components/All-quizzes/all-quizzes.component';
-import { DisplayQuizComponent } from './Components/Display-quiz/display-quiz.component';
-import { CreateQuizComponent } from './Components/create-quiz/create-quiz.component';
+import { AllQuizzesComponent } from './Components/Quizzes/All-quizzes/all-quizzes.component';
+import { DisplayQuizComponent } from './Components/Quizzes/Display-quiz/display-quiz.component';
+import { CreateQuizComponent } from './Components/Quizzes/create-quiz/create-quiz.component';
 import { FooterComponent } from './Components/Home/footer/footer.component';
 import { LoginComponent } from './Components/Auth/login/login.component';
 import { RegisterComponent } from './Components/Auth/register/register.component';
@@ -20,6 +20,8 @@ import { ResetPasswordComponent } from './Components/Auth/reset-password/reset-p
 import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgot-password.component';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr, ToastrModule } from 'ngx-toastr';
+import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
+import { CategoryContentComponent } from './Components/category-content/category-content.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { provideToastr, ToastrModule } from 'ngx-toastr';
     LoginComponent,
     RegisterComponent,
     ResetPasswordComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    CreateSetOfFlashcardsComponent,
+    CategoryContentComponent
   ],
   imports: [
     BrowserModule,

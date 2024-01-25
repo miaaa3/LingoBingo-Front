@@ -3,7 +3,7 @@ import { from, Observable, of } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
 import { QuizApiService } from './quiz-api.service';
 import { Question } from '../..//Models/question.model';
-import { getQuizCategories, QuizCategory } from '../../Models/enums/quiz-category.enum';
+import { getQuizCategories, Category } from '../../Models/enums/category.enum';
 
 
 @Injectable({
@@ -17,12 +17,12 @@ export class GenerateQuizService {
   generateQuizzes(): Observable<Question[]> {
     return from(this.categories).pipe(
       mergeMap(category => this.api.getQuestionsByCategory(category)),
-      mergeMap(questions => this.getRandomQuestions(questions, 5))
+      mergeMap(questions => this.getRandomQuestions(questions, 10))
     );
   }
-  generateQuizzesForCategory(category: QuizCategory): Observable<Question[]> {
+  generateQuizzesForCategory(category: Category): Observable<Question[]> {
     return this.api.getQuestionsByCategory(category).pipe(
-      mergeMap(questions => this.getRandomQuestions(questions, 20)),
+      mergeMap(questions => this.getRandomQuestions(questions, 10)),
     );
   }
   private getRandomQuestions(questions: Question[], count: number): Observable<Question[]> {
