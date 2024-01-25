@@ -1,0 +1,22 @@
+<div>
+    <h1 class="font-bold text-3xl text-center">{{category}}</h1>
+
+    <div>
+        <div class="flex justify-between">
+            <h1 class="font-medium text-xl">Quizzes</h1>
+            <div class="flex gap-3  *:py-1 *:px-3 *:rounded-full *:cursor-pointer *:bg-perano-200 ">
+                <button class="hover:bg-perano-400 focus:bg-perano-400 focus:outline-2 focus:outline focus:outline-gray-600" (click)="getQuestionsByDifficultyAndCategory('Easy')">Easy</button>
+                <button class="hover:bg-perano-400 focus:bg-perano-400 focus:outline-2 focus:outline focus:outline-gray-600" (click)="getQuestionsByDifficultyAndCategory('Medium')">Medium</button>
+                <button class="hover:bg-perano-400 focus:bg-perano-400 focus:outline-2 focus:outline focus:outline-gray-600" (click)="getQuestionsByDifficultyAndCategory('Hard')">Hard</button>
+            </div>
+        </div>    
+        <div class="p-2 mt-4 grid grid-cols-3 gap-5 " >
+            <div class="p-4 border rounded-lg flex justify-between cursor-pointer " *ngFor="let i of numbers;" routerlink="/Display-quiz">
+                <h1 class="font-medium">Quiz {{ i }}</h1> 
+                <svg class="size-5 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>

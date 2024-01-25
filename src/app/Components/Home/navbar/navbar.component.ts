@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { LocalService } from 'src/app/Services/local.service';
+import { LocalService } from 'src/app/Services/Auth/local.service';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 
 

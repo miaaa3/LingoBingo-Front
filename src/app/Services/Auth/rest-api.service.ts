@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/app/Environments/environment';
 
-const apiUrl = 'http://127.0.0.1:8000/api';
+  const apiUrl = environment.apiUrl+'/authentication';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,8 @@ export class RestApiService {
   public token?: string;
   public loggued: any = false;
   public user: any;
+
+
 
   constructor(private http: HttpClient) { }
 

@@ -36,7 +36,7 @@
         <div *ngIf="open" [@dropdownAnimation]="'visible'" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
           <div class="bg-white rounded-md shadow dark-mode:bg-gray-800">
             <a (click)="closeDropdown()" class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-t-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" routerLink="/Create-quiz">New Quiz</a>
-            <a (click)="closeDropdown()" class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-b-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline" routerLink="">New Set Of Flashcards</a>
+            <a (click)="closeDropdown()" class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-b-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline" routerLink="/Create-flashcard">New Set Of Flashcards</a>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
       </div>
   
       <div class="flex mx-2 *:mx-1" *ngIf="!(isUser | async)">
-        <button routerLink="/login" class="py-2 px-3 rounded-lg hover:bg-gray-100 text-gray-800 text-sm font-medium">Log in</button>
+        <button routerLink="/Login" class="py-2 px-3 rounded-lg hover:bg-gray-100 text-gray-800 text-sm font-medium">Log in</button>
         <button routerLink="/Register" class="py-2 px-3 rounded-lg bg-amber-300 hover:bg-amber-200 text-sm text-gray-800 font-medium">Sign up</button>
       </div>
     </div>
