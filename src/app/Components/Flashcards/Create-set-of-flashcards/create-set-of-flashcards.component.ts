@@ -32,7 +32,7 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.numbers = [1, 2];
+    this.numbers = [1];
     this.categories = getQuizCategories();
     this.difficulties = getDifficulties();
     this.addNewCard();

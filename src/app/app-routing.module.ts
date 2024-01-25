@@ -9,7 +9,7 @@ import { ResetPasswordComponent } from './Components/Auth/reset-password/reset-p
 import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgot-password.component';
 import { SearchFlashcardComponent } from './Components/Search-flashcard/search-flashcard.component';
 import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
-import { CategoryContentComponent } from './Components/category-content/category-content.component';
+import { CategoryContentComponent } from './Components/Category-content/category-content.component';
 
 
 const routes: Routes = [

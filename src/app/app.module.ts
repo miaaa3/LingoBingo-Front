@@ -21,7 +21,7 @@ import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgo
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr, ToastrModule } from 'ngx-toastr';
 import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
-import { CategoryContentComponent } from './Components/category-content/category-content.component';
+import { CategoryContentComponent } from './Components/Category-content/category-content.component';
 
 
 @NgModule({

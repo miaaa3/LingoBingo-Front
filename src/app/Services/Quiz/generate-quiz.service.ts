@@ -17,7 +17,7 @@ export class GenerateQuizService {
   generateQuizzes(): Observable<Question[]> {
     return from(this.categories).pipe(
       mergeMap(category => this.api.getQuestionsByCategory(category)),
-      mergeMap(questions => this.getRandomQuestions(questions, 10))
+      mergeMap(questions => this.getRandomQuestions(questions, 5))
     );
   }
   generateQuizzesForCategory(category: Category): Observable<Question[]> {

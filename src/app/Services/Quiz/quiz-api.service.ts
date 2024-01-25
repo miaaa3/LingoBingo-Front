@@ -24,8 +24,14 @@ export class QuizApiService {
       this.mappeddata()
     )
   }
-  getQuestionsByDifficulty(difficulty:Difficulty):Observable<Question[]>{
+  getQuestionsByDifficulty(difficulty:string):Observable<Question[]>{
     return this.http.get(this.api.QUIZ_API_ENDPOINTS.questionByDifficulty(difficulty)).pipe(
+      this.mappeddata()
+    )
+  }
+
+  getQuestionsByDifficultyAndcategory(difficulty: string, category: string):Observable<Question[]>{
+    return this.http.get(this.api.QUIZ_API_ENDPOINTS.questionByDifficultyAndCategory(difficulty,category)).pipe(
       this.mappeddata()
     )
   }

@@ -12,18 +12,30 @@ export class SearchFlashcardComponent{
 
 
   backgroundColor: { [key: string]: string } = {
-    PHP: "#7587bf",        // Light Blue
-    Programming: "#75e0be", // Gold
-    Linux: "#e1bd18",       // Yellow
-    CMS: "#87CEEB",         // SkyBlue
-    Docker: "#039cfd",      // Ocean Blue
-    HTML: "#e46b48",        // Salmon
-    SQL: "#e0effe",         // Steel Blue
-    WordPress: "#1ca7db",   // Tomato
-    BASH: "#bdbfc1",        // Silver
-    DevOps: "#b5daf2",      // Light SkyBlue
-    Kubernetes: "#e1eafb",  // Sapphire Blue
-    Angular: "#b52e31",     // Purple
+    AI: "#9a2e7b",           
+    Angular: "#b52e31",      
+    Blockchain: "#1d84cf",   
+    CMS: "#87CEEB",          
+    CloudComputing: "#9fabe8",
+    DataScience: "#a0a9ba", 
+    DevOps: "#b5daf2",      
+    Docker: "#039cfd",      
+    Git: "#f2f3f4",         
+    HTML: "#e46b48",        
+    iOS: "#caf2b5",         
+    Java: "#fff",           
+    JavaScript: "#f1e05a",     
+    Kubernetes: "#e1eafb",     
+    Linux: "#e1bd18",          
+    PHP: "#7587bf",            
+    Python: "#306998",         
+    Ruby: "#cc342d",           
+    Security: "#99c2a2",       
+    SQL: "#e0effe",            
+    Swift: "#ffac45",          
+    TypeScript: "#ff2ff",      
+    UXUI: "#5d5d5d",            
+    WordPress: "#1ca7db",       
   };
   
 }
