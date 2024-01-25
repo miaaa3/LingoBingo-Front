@@ -2,7 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
-import { RestApiService } from 'src/app/Services/rest-api.service';
+import { RestApiService } from 'src/app/Services/Auth/rest-api.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -41,7 +41,7 @@ export class ForgotPasswordComponent  implements OnInit{
         this.isLoading = false;
           this.toastr.success('Password reset email sent successfully.', 'Success');
         setTimeout(() => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/Login']);
         }, 2000);
       },
       err =>{

@@ -2,8 +2,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalService } from 'src/app/Services/local.service';
-import { RestApiService } from 'src/app/Services/rest-api.service';
+import { LocalService } from 'src/app/Services/Auth/local.service';
+import { RestApiService } from 'src/app/Services/Auth/rest-api.service';
 
 @Component({
   selector: 'app-login',

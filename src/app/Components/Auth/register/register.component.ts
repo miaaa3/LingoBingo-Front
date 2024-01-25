@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RestApiService } from '../../../Services/rest-api.service';
+import { RestApiService } from '../../../Services/Auth/rest-api.service';
 
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { LocalService } from 'src/app/Services/local.service';
+import { LocalService } from 'src/app/Services/Auth/local.service';
 
 
 
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit{
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      name: ['', Validators.required, Validators.minLength(4)],
+      username: ['', Validators.required, Validators.minLength(4)],
       email: [null, <any>[Validators.required, Validators.email]],
       password: [null, <any>[Validators.required, Validators.minLength(8)]],
     });
