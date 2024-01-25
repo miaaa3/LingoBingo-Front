@@ -32,13 +32,6 @@ export class ResetPasswordComponent {
 
   ngOnInit(): void {}
 
-  submitForm() {
-    if (this.resetForm.valid) {
-      this.setNewPassword();
-    } else {
-      this.toastr.error('Form is not valid.', 'Error');
-    }
-  }
 
   setNewPassword(): void {
     this.isLoading = true;

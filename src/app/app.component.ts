@@ -100,7 +100,7 @@ export class AppComponent implements OnInit{
     //   this.testQuiz = data;
     //   console.warn(this.testQuiz)
     // });
-    this.generateQuiz.generateQuizzesForCategory(QuizCategory.CMS).subscribe(data => {
+    this.generateQuiz.generateQuizzesForCategory(QuizCategory.HTML).subscribe(data => {
       this.quizzesByCategory = data;
       console.warn(this.quizzesByCategory)
     });

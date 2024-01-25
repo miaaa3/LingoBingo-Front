@@ -38,7 +38,7 @@
             </div>
               
       
-            <button type="submit" (click)="register()" class="cursor-pointer w-full py-3 px-4 bg-indigo-600 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105">
+            <button type="submit" (click)="register()" [disabled]="isLoading || registerForm.invalid"class="cursor-pointer w-full py-3 px-4 bg-indigo-600 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105">
               <div *ngIf="isLoading" class="loading-indicator"></div>
               <span *ngIf="!isLoading">Sign up</span>
             </button>

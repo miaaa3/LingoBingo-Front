@@ -5,6 +5,7 @@ import { RestApiService } from '../../../Services/rest-api.service';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LocalService } from 'src/app/Services/local.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -23,7 +24,9 @@ export class RegisterComponent implements OnInit{
     private api: RestApiService,
     private fb: FormBuilder,
     private router: Router,
-    private local:LocalService
+    private local:LocalService,
+    private toastr: ToastrService,
+
     ) {}
 
   ngOnInit() {
@@ -31,7 +34,9 @@ export class RegisterComponent implements OnInit{
       name: ['', Validators.required, Validators.minLength(4)],
       email: [null, <any>[Validators.required, Validators.email]],
       password: [null, <any>[Validators.required, Validators.minLength(8)]],
-    });
+    },
+    { validators: [Validators.required] }
+    );
   }
 
 
@@ -64,7 +69,7 @@ export class RegisterComponent implements OnInit{
           })
         };
         this.api.user = res['user'];
-       
+        this.toastr.success('Sign up successfully.', 'Success');
         this.router.navigate(['/Home']);
         setTimeout(() => {
           this.isLoading = false;
@@ -72,9 +77,9 @@ export class RegisterComponent implements OnInit{
     
       },
       err=>{
-        setTimeout(() => {
+        this.toastr.error('Error during sign up.', 'Error');
+
           this.isLoading = false;
-        }, 2000);
       }
     );
   }
