@@ -47,24 +47,24 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     // this.loadQuestions()
 
-    console.warn("after : "+this.local.getData("userApiKey"))
-    this.api.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.local.getData("userApiKey")
-      })
-    };
-    this.api.profile().subscribe(
-      res => {
-        if(res['id']==null){
-          this.local.removeData("userApiKey")
-        }
-      },
-      err => {
-        this.local.removeData("userApiKey")
-      }
-    );
+    // console.warn("after : "+this.local.getData("userApiKey"))
+    // this.api.httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //     Accept: 'application/json',
+    //     Authorization: 'Bearer ' + this.local.getData("userApiKey")
+    //   })
+    // };
+    // this.api.profile().subscribe(
+    //   res => {
+    //     if(res['id']==null){
+    //       this.local.removeData("userApiKey")
+    //     }
+    //   },
+    //   err => {
+    //     this.local.removeData("userApiKey")
+    //   }
+    // );
   }
 
   // loadQuestions(): void {

@@ -3,7 +3,7 @@ import { Difficulty } from "./enums/difficulty.enum";
 import { Question } from "./question.model";
 
 export class Quiz {
-    Id!: number;
+    quizId!: number;
     quizName!: string;
     category!: Category;
     difficulty!: Difficulty;

@@ -11,8 +11,8 @@
             </div>
         </div>    
         <div class="p-2 mt-4 grid grid-cols-3 gap-5 " >
-            <div class="p-4 border rounded-lg flex justify-between cursor-pointer " *ngFor="let i of numbers;" routerlink="/Display-quiz">
-                <h1 class="font-medium">Quiz {{ i }}</h1> 
+            <div class="p-4 border rounded-lg flex justify-between cursor-pointer" *ngFor="let quiz of quizzes" [routerLink]="'/Display-quiz/' + quiz.quizId">
+                <h1 class="font-medium">{{quiz.quizName}}  +  {{quiz.quizId}}</h1> 
                 <svg class="size-5 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z"/>
                 </svg>
