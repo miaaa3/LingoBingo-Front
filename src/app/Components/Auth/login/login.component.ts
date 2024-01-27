@@ -53,13 +53,6 @@ export class LoginComponent implements OnInit{
         this.api.token = res['access_token'];
         this.local.saveData("userApiKey",this.api.token!)
 
-        this.api.httpOptions = {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: 'Bearer ' + this.api.token
-          })
-        };
         this.api.user = res['user'];
         this.toastr.success('Loged in successfully.', 'Success');
         this.router.navigate(['/Home']);

@@ -10,6 +10,7 @@ import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgo
 import { SearchFlashcardComponent } from './Components/Search-flashcard/search-flashcard.component';
 import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
 import { CategoryContentComponent } from './Components/Category-content/category-content.component';
+import { DisplayQuizComponent } from './Components/Quizzes/Display-quiz/display-quiz.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path:'Forgot-password', component:ForgotPasswordComponent},
   {path:'Create-flashcard', component:CreateSetOfFlashcardsComponent},
   {path:"Category-content/:category",component:CategoryContentComponent},
+  { path: 'Display-quiz/:id', component: DisplayQuizComponent }, 
   {path:'', redirectTo:'Home', pathMatch:'full'},
   {path:'**',redirectTo:'Home'},
   
