@@ -34,7 +34,7 @@ export class AppComponent implements OnInit{
   
   shouldDisplay(): boolean {
     const currentRoute = this.router.url;
-    const endpoints = ['/Create-quiz','/Search'];
+    const endpoints = ['/Create-quiz'];
     return !endpoints.some(endpoint => currentRoute.includes(endpoint));
   }
 
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    // this.loadQuestions()
+    this.loadQuestions()
 
     // console.warn("after : "+this.local.getData("userApiKey"))
     // this.api.httpOptions = {
@@ -67,44 +67,44 @@ export class AppComponent implements OnInit{
     // );
   }
 
-  // loadQuestions(): void {
-  //   // this.test.getQuestions().subscribe(
-  //   //   (data) => {
-  //   //     this.questions = data;
-  //   //     console.warn(this.questions)
-  //   //   },
-  //   //   (error) => {
-  //   //     console.error('Error loading questions:', error);
-  //   //   }
-  //   // );
-  //   // this.test.getQuestionsByCategory('Linux').subscribe(
-  //   //   (data) => {
-  //   //     this.questionsByCategory = data;
-  //   //     console.warn(this.questionsByCategory)
-  //   //   },
-  //   //   (error) => {
-  //   //     console.error('Error loading questions:', error);
-  //   //   }
-  //   // );
-  //   // this.test.getQuestionsByDifficulty(Difficulty.Medium).subscribe(
-  //   //   (data) => {
-  //   //     this.questionsByDifficulty = data;
-  //   //     console.warn(this.questionsByDifficulty)
-  //   //   },
-  //   //   (error) => {
-  //   //     console.error('Error loading questions:', error);
-  //   //   }
-  //   // )
+  loadQuestions(): void {
+    // this.test.getQuestions().subscribe(
+    //   (data) => {
+    //     this.questions = data;
+    //     console.warn(this.questions)
+    //   },
+    //   (error) => {
+    //     console.error('Error loading questions:', error);
+    //   }
+    // );
+    // this.test.getQuestionsByCategory('Linux').subscribe(
+    //   (data) => {
+    //     this.questionsByCategory = data;
+    //     console.warn(this.questionsByCategory)
+    //   },
+    //   (error) => {
+    //     console.error('Error loading questions:', error);
+    //   }
+    // );
+    // this.test.getQuestionsByDifficulty(Difficulty.Medium).subscribe(
+    //   (data) => {
+    //     this.questionsByDifficulty = data;
+    //     console.warn(this.questionsByDifficulty)
+    //   },
+    //   (error) => {
+    //     console.error('Error loading questions:', error);
+    //   }
+    // )
 
-  //   // this.generateQuiz.generateQuizzes().subscribe(data => {
-  //   //   this.testQuiz = data;
-  //   //   console.warn(this.testQuiz)
-  //   // });
-  //   this.generateQuiz.generateQuizzesForCategory(Category.CMS).subscribe(data => {
-  //     this.quizzesByCategory = data;
-  //     console.warn(this.quizzesByCategory)
-  //   });
-  // }
+    // this.generateQuiz.generateQuizzes().subscribe(data => {
+    //   this.testQuiz = data;
+    //   console.warn(this.testQuiz)
+    // });
+    this.generateQuiz.generateQuizzesForCategory(Category.CMS).subscribe(data => {
+      this.quizzesByCategory = data;
+      console.warn(this.quizzesByCategory)
+    });
+  }
 
   
 }

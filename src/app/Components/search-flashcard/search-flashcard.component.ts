@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { getQuizCategories } from 'src/app/Models/enums/category.enum';
+import { BgColors } from 'src/app/Models/BgColors';
+import { Category, getQuizCategories } from 'src/app/Models/enums/category.enum';
 
 
 
@@ -64,4 +65,11 @@ export class SearchFlashcardComponent implements OnInit{
     return this.categories.filter(category => category.toLowerCase().includes(this.searchItem.toLowerCase()));
   }
   
+
+  getBackgroundColor(category: string): string {
+    const bgColors: Record<string, string> = BgColors;
+    const defaultColor = "#ffffff"; // Replace with your default color
+    return bgColors[category as keyof typeof BgColors] || defaultColor;
+  }
+   
 }

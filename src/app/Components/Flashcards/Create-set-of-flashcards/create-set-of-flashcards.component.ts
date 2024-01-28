@@ -39,6 +39,7 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
   }
 
   createFlashcardSet() {
+
     this.flashcardSet.flashcards = this.flashcards;
 
     this.flashcardSetService.addFlashcardSet(this.flashcardSet).subscribe(

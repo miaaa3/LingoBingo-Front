@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/Environments/environment';
 
-  const apiUrl = environment.apiUrl+'/authentication';
+  const apiUrl = environment.apiUrl;
 
 
 @Injectable({
