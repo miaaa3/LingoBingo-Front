@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/Environments/environment';
 
-  const apiUrl = environment.apiUrl;
+  const apiUrl = 'http://127.0.0.1:8000/api';
 
 
 @Injectable({

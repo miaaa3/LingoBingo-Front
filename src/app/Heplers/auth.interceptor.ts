@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private tokenStorage: LocalService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.tokenStorage.getData("userApiKey");
+    const token = this.tokenStorage.getData("userApiKey2");
       const isApiUrl = request.url.startsWith(environment.apiUrl);
 
       const isExcludedPath = excludedPaths.some(excludedPath => request.url.includes(excludedPath));

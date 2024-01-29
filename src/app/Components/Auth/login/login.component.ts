@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/Services/Auth/authentication.service';
 import { LocalService } from 'src/app/Services/Auth/local.service';
 import { RestApiService } from 'src/app/Services/Auth/rest-api.service';
 
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit{
     private router: Router,
     private local:LocalService,
     private toastr: ToastrService,
+    private auth:AuthenticationService,
 
     ) {
     
@@ -48,6 +50,12 @@ export class LoginComponent implements OnInit{
               Accept: 'application/json',
             })
           };
+    this.auth.login(this.loginForm.value).subscribe(
+      res=>{
+        this.local.saveData("userApiKey2",res['access_token']);
+        
+      }
+    )
     this.api.login(this.loginForm.value).subscribe(
       res => {
         this.api.token = res['access_token'];
