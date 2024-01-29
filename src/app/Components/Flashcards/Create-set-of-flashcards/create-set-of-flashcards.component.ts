@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { Difficulty, getDifficulties } from 'src/app/Models/enums/difficulty.enum';
 import { Category, getQuizCategories } from 'src/app/Models/enums/category.enum';
 import { Router } from '@angular/router';
@@ -6,6 +7,7 @@ import { FlashcardService } from 'src/app/Services/Flashcards/flashcard.service'
 import { FlashcardSetService } from 'src/app/Services/Flashcards/flashcardSet.service';
 import { FlashcardSet } from 'src/app/Models/flashcard-set';
 import { Flashcard } from 'src/app/Models/flashcard';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-set-of-flashcards',
@@ -16,39 +18,70 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
   difficulties: string[] = [];
   categories: string[] = [];
   numbers: number[] = [];
-  flashcardSet: FlashcardSet = { name: '', description: '', flashcards: [] };
+  flashcardSet: FlashcardSet = {} as FlashcardSet;
   flashcards: Flashcard[] = [];
+  flashcardSetForm!: FormGroup;
+  flashcardsArray: AbstractControl[] = [];
 
   constructor(
+    private formBuilder: FormBuilder,
     private flashcardSetService: FlashcardSetService,
     private flashcardService: FlashcardService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
+
   ) {}
 
+
   addNewCard(): void {
-    const newFlashcard: Flashcard = { term: '', definition: '' };
-    this.flashcards.push(newFlashcard);
-    this.numbers.push(this.numbers.length + 1);
-  }
+    const flashcards = this.flashcardSetForm.get('flashcards') as FormArray;
+    flashcards.push(this.formBuilder.group({
+      term: [''],
+      definition: ['']
+    }));      
+
+      this.numbers.push(this.numbers.length + 1);
+    this.flashcardsArray = (this.flashcardSetForm.get('flashcards') as FormArray).controls;
+
+    }  
+
+
 
   ngOnInit(): void {
     this.numbers = [1];
     this.categories = getQuizCategories();
     this.difficulties = getDifficulties();
-    this.addNewCard();
+
+    this.flashcardSetForm = this.formBuilder.group({
+      name: [''],
+      description: [''],
+      category: [''],
+      difficulty: [''],
+      flashcards: this.formBuilder.array([]),
+    });
+      this.flashcardsArray = (this.flashcardSetForm.get('flashcards') as FormArray).controls;
+
+    this.addNewCard()
+
   }
 
-  createFlashcardSet() {
-    this.flashcardSet.flashcards = this.flashcards;
+ 
 
-    this.flashcardSetService.addFlashcardSet(this.flashcardSet).subscribe(
-      (response) => {
-        console.log('Flashcard set created successfully:', response);
-        this.router.navigate(['']); 
-      },
-      (error) => {
-        console.error('Error creating flashcard set:', error);
-      }
-    );
+  createFlashcardSet(): void {
+      const flashcardSet: FlashcardSet = { ...this.flashcardSetForm.value };
+      flashcardSet.category = flashcardSet.category.toUpperCase() as Category;
+      flashcardSet.difficulty = flashcardSet.difficulty.toUpperCase() as Difficulty;
+
+      this.flashcardSetService.addFlashcardSet(flashcardSet).subscribe(
+        (response) => {
+          console.log('Flashcard set created successfully:', flashcardSet);
+          this.toastr.success('Flashcard set created successfully', 'Success');
+          this.router.navigate(['/Category-content/', flashcardSet.category]);
+        },
+        (error) => {
+          console.error('Error creating flashcard set:', error);
+        }
+      );
+  
   }
 }

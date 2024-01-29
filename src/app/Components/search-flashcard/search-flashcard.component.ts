@@ -13,10 +13,21 @@ export class SearchFlashcardComponent{
 
 
 
+
   getBackgroundColor(category: string): string {
     const bgColors: Record<string, string> = BgColors;
-    const defaultColor = "#ffffff"; // Replace with your default color
-    return bgColors[category as keyof typeof BgColors] || defaultColor;
+    const defaultColor = "#ffffff";
+    
+    const formattedCategory = category.replace(/\s/g, '').toLowerCase();
+    
+    for (const key in bgColors) {
+      if (bgColors.hasOwnProperty(key) && key.replace(/\s/g, '').toLowerCase() === formattedCategory) {
+        return bgColors[key];
+      }
+    }
+  
+    return defaultColor;
   }
+  
    
 }

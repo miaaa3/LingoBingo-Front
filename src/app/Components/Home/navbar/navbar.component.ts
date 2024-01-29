@@ -36,7 +36,9 @@ export class NavbarComponent {
   
 
   logout(): void {
-    this.local.removeData("userApiKey");     
+    this.local.removeData("userApiKey");   
+    this.local.removeData("username");     
+  
     this.isUser.next(false); 
   }
   toggleDropdown(): void {

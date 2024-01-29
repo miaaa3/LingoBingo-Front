@@ -13,7 +13,6 @@ export class LocalService {
   public saveData(key: string, value: string) {
     localStorage.setItem(key, this.encrypt(value));
   }
-
   public getData(key: string) {
     let data = localStorage.getItem(key)|| "";
     return this.decrypt(data);
