@@ -8,5 +8,5 @@ export interface FlashcardSet {
   category?: Category; 
   difficulty?: Difficulty; 
   description: string;
-  flashcards?: Flashcard[]; 
+  flashcards: Flashcard[]; 
 }

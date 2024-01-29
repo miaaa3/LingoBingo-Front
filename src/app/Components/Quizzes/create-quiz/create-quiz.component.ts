@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { getQuizCategories } from 'src/app/Models/enums/category.enum';
+import { getDifficulties } from 'src/app/Models/enums/difficulty.enum';
 import { Question } from 'src/app/Models/question.model';
 
 
@@ -12,13 +13,17 @@ import { Question } from 'src/app/Models/question.model';
 export class CreateQuizComponent implements OnInit{
   quizForm!: FormGroup;
   categories : String[] = getQuizCategories()
+  difficulties: string[];
   constructor(private fb: FormBuilder) {
     this.quizForm = this.fb.group({});
   }
   
 
   ngOnInit(): void {
+    this.categories = getQuizCategories();
+    this.difficulties = getDifficulties();
     this.initForm()
+   
   }
 
   initForm(): void {
@@ -49,6 +54,8 @@ export class CreateQuizComponent implements OnInit{
       difficulty: ['', Validators.required],
     });
   }
+
+  
 
   onSubmit(): void {
     const formData: Question = this.quizForm.value;

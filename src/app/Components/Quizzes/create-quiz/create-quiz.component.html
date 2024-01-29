@@ -28,42 +28,70 @@
     </div>
   
     <form *ngIf="quizForm" [formGroup]="quizForm" (ngSubmit)="onSubmit()">
-      <div class="mb-4">
-        <label for="question" class="block text-gray-700 text-sm font-bold mb-2">Question</label>
-        <textarea
-          id="question"
-          formControlName="question"
-          placeholder="Enter your question"
-          class="w-full border rounded-md p-2"
-        ></textarea>
-      </div>
-  
-      <div class="mb-4">
-        <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
-        <textarea
-          id="description"
-          formControlName="description"
-          placeholder="Enter a description"
-          class="w-full border rounded-md p-2"
-        ></textarea>
-      </div>
-  
-      <div class="mb-4" formGroupName="answers">
-        <label class="block text-gray-700 text-sm font-bold mb-2">Answers</label>
-        <div class="grid grid-cols-2 gap-4">
-          <div *ngFor="let answer of ['a', 'b', 'c', 'd', 'e', 'f']">
-            <label [for]="'answer_' + answer" class="block text-gray-700 text-sm font-bold mb-1">
-              Answer {{ answer.toUpperCase() }}
-            </label>
-            <input [id]="'answer_' + answer" formControlName="answer_{{ answer }}" class="w-full border rounded-md p-2">
-          </div>
+
+      <div class="flex gap-5 my-3">
+        <textarea class="w-1/2 rounded-lg shadow-sm p-2 text-base  focus:outline-none focus:border-b-perano-400 focus:border-b-2"
+                  type="text" name="quizName" id="quizName" formControlName="quizName" placeholder="Add a name for your quiz ..."></textarea>
+        <div class="space-y-4 w-1/2">
+            <select class="w-full h-10 rounded-lg shadow-sm p-2  focus:outline-none focus:border-b-perano-400 focus:border-b-2 "
+                    type="text" name="category" id="categories" formControlName="category">
+                <option class="text-gray-500" disabled selected>Select a category (optional)</option>
+                <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+            </select>
+            <select class="w-full h-10 rounded-lg shadow-sm p-2  focus:outline-none focus:border-b-perano-400 focus:border-b-2"
+                    type="text" name="difficulty" id="difficulties" formControlName="difficulty">
+                <option class="text-gray-500" disabled selected>Select a difficulty (optional)</option>
+                <option *ngFor="let difficulty of difficulties" [value]="difficulty">{{difficulty}}</option>
+            </select>
         </div>
       </div>
 
-      <div class="mb-4">
-        <label for="multipleCorrectAnswers" class="block text-gray-700 text-sm font-bold mb-2">Multiple Correct Answers</label>
-        <input id="multipleCorrectAnswers" formControlName="multiple_correct_answers" type="checkbox">
+      <div class="flex gap-5">
+        <div class="mb-4 w-1/2">
+          <label for="question" class="block text-gray-700 text-sm font-bold mb-2">Question</label>
+          <textarea
+            id="question"
+            formControlName="question"
+            placeholder="Enter your question"
+            class="w-full rounded-lg shadow-sm p-2 text-base  focus:outline-none focus:border-b-perano-400 focus:border-b-2"
+          ></textarea>
+        </div>
+
+        <div class="mb-4 w-1/2">
+          <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="Enter a description"
+            class="w-full rounded-lg shadow-sm p-2 text-base  focus:outline-none focus:border-b-perano-400 focus:border-b-2"
+          ></textarea>
+        </div>
       </div>
+
+      <div class="mb-4" formGroupName="answers">
+        <label class="block text-gray-700 align-text-base font-bold mb-2">Answers</label>
+        <div class="grid grid-cols-2 gap-4">
+          <div *ngFor="let answer of ['a', 'b', 'c', 'd']">
+            <label [for]="'answer_' + answer" class="block text-gray-700 text-sm font-bold mb-1">
+              {{ answer.toUpperCase() }}
+            </label>
+            <div class="flex items-center gap-3">
+              <input [id]="'answer_' + answer" formControlName="answer_{{ answer }}" class="w-full border rounded-md p-2">
+                <input class="size-4" type="checkbox" [id]="'answer_' + answer + '_correct'" >
+            </div>
+            
+            
+          </div>
+        </div>
+      </div>
+      
+          
+      <label  class="relative inline-flex items-center cursor-pointer">
+        <input id="multipleCorrectAnswers" formControlName="multiple_correct_answers" type="checkbox" value="" class="sr-only peer">
+        <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+        <span  for="multipleCorrectAnswers"  class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Multiple Correct Answers</span>
+      </label>
+
 
       <div class="mb-4" formGroupName="correct_answers">
         <label class="block text-gray-700 text-sm font-bold mb-3">Correct Answers</label>

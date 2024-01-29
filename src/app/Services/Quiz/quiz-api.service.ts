@@ -42,7 +42,7 @@ export class QuizApiService {
     return map((data: any) => {
       if (Array.isArray(data)) {
         console.error(data);
-        return 
+        return false
         // data.map((questionData: any) => Question(questionData)) as Question[];
       } else {
         console.error('Invalid response format:', data);

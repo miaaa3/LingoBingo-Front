@@ -11,20 +11,23 @@ import { SearchFlashcardComponent } from './Components/Search-flashcard/search-f
 import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
 import { CategoryContentComponent } from './Components/Category-content/category-content.component';
 import { DisplayQuizComponent } from './Components/Quizzes/Display-quiz/display-quiz.component';
+import { AuthGuard } from './Guard/auth.guard';
+import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flashcards/display-flashcards.component';
 
 
 const routes: Routes = [
   {path:'Home', component:HomePageComponent},
-  {path:'Search', component:SearchFlashcardComponent},
-  {path:'All-quizzes', component:AllQuizzesComponent},
-  {path:'Create-quiz', component:CreateQuizComponent},
+  {path:'Search', component:SearchFlashcardComponent, canActivate: [AuthGuard]},
+  {path:'All-quizzes', component:AllQuizzesComponent, canActivate: [AuthGuard]},
+  {path:'Create-quiz', component:CreateQuizComponent, canActivate: [AuthGuard]},
   {path:'Login', component:LoginComponent},
   {path:'Register', component:RegisterComponent},
   {path:'Reset-password', component:ResetPasswordComponent},
   {path:'Forgot-password', component:ForgotPasswordComponent},
-  {path:'Create-flashcard', component:CreateSetOfFlashcardsComponent},
-  {path:"Category-content/:category",component:CategoryContentComponent},
-  { path: 'Display-quiz/:id', component: DisplayQuizComponent }, 
+  {path:'Create-flashcard', component:CreateSetOfFlashcardsComponent, canActivate: [AuthGuard]},
+  {path:"Category-content/:category",component:CategoryContentComponent, canActivate: [AuthGuard]},
+  { path: 'Display-quiz/:id', component: DisplayQuizComponent, canActivate: [AuthGuard] }, 
+  { path: 'Display-flashcard/:id', component: DisplayFlashcardsComponent, canActivate: [AuthGuard] }, 
   {path:'', redirectTo:'Home', pathMatch:'full'},
   {path:'**',redirectTo:'Home'},
   
