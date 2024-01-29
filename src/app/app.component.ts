@@ -9,6 +9,7 @@ import { LocalService } from './Services/Auth/local.service';
 import { QuizApiService } from './Services/Quiz/quiz-api.service';
 import { RestApiService } from './Services/Auth/rest-api.service';
 import { HttpHeaders } from '@angular/common/http';
+import { AuthenticationService } from './Services/Auth/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -28,13 +29,13 @@ export class AppComponent implements OnInit{
     private test:QuizApiService,
      private generateQuiz : GenerateQuizService,
      private router: Router,
-     private api : RestApiService,
+     private authService : AuthenticationService,
      private local:LocalService
     ) {}
   
   shouldDisplay(): boolean {
     const currentRoute = this.router.url;
-    const endpoints = ['/Create-quiz'];
+    let endpoints = ['/Create-quiz', ];
     return !endpoints.some(endpoint => currentRoute.includes(endpoint));
   }
 
@@ -44,7 +45,13 @@ export class AppComponent implements OnInit{
     return endpoints.some(endpoint => currentRoute.includes(endpoint));
   }
 
+  shouldHideSidebar(): boolean {
+    return !this.local.getData("userApiKey");
+  }
+
   ngOnInit(): void {
+
+
     // this.loadQuestions()
 
     // console.warn("after : "+this.local.getData("userApiKey"))

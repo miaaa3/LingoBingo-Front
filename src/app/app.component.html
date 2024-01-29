@@ -1,13 +1,10 @@
 <div *ngIf="!onlyOneComponent()">
     <app-navbar ></app-navbar>
     <router-outlet *ngIf="!shouldDisplay()"></router-outlet>
-    <body *ngIf="shouldDisplay()" class="flex min-h-screen gap-6 mr-2">
-        <app-sidebar class="w-[15%]" ></app-sidebar>
-        <div class="flex-grow w-[85%] mt-16 ">
-            <div class="relative overflow-x-auto p-5 bg-[#f6f7fb] rounded-xl">
+    <body *ngIf="shouldDisplay()" class="flex min-h-screen gap-6 mr-2 pb-3 px-7">
+            <div class="w-full mt-16 px-7 relative overflow-x-auto p-5 bg-[#f6f7fb] rounded-xl">
                 <router-outlet></router-outlet>
             </div>
-        </div>
     </body>
 </div>
 

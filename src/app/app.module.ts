@@ -23,6 +23,7 @@ import { provideToastr, ToastrModule } from 'ngx-toastr';
 import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
 import { CategoryContentComponent } from './Components/Category-content/category-content.component';
 import { AuthInterceptor } from './Heplers/auth.interceptor';
+import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flashcards/display-flashcards.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AuthInterceptor } from './Heplers/auth.interceptor';
     ResetPasswordComponent,
     ForgotPasswordComponent,
     CreateSetOfFlashcardsComponent,
-    CategoryContentComponent
+    CategoryContentComponent,
+    DisplayFlashcardsComponent
   ],
   imports: [
     BrowserModule,

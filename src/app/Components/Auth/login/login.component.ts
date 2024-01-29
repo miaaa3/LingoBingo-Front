@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/Services/Auth/authentication.service';
 import { LocalService } from 'src/app/Services/Auth/local.service';
 import { RestApiService } from 'src/app/Services/Auth/rest-api.service';
 
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit{
     private router: Router,
     private local:LocalService,
     private toastr: ToastrService,
+    private authService: AuthenticationService
 
     ) {
     
@@ -33,6 +35,16 @@ export class LoginComponent implements OnInit{
       password: [null, <any>[Validators.required, Validators.minLength(8)]],
       
     } ,{ validators: [Validators.required] }
+    );
+    this.authService.getAuthenticatedUser().subscribe(
+      user => {
+        const username = user.name;
+        localStorage.setItem("username", username);
+
+      },
+      error => {
+        console.error('Error fetching authenticated user:', error);
+      }
     );
   }
 
@@ -52,10 +64,13 @@ export class LoginComponent implements OnInit{
       res => {
         this.api.token = res['access_token'];
         this.local.saveData("userApiKey",this.api.token!)
-
+        
         this.api.user = res['user'];
         this.toastr.success('Loged in successfully.', 'Success');
         this.router.navigate(['/Home']);
+        if(this.router.navigate(['/Home'])){
+          this.ngOnInit();
+        }
         setTimeout(() => {
           this.isLoading = false;
         }, 2000);
