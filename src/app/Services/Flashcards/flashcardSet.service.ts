@@ -7,7 +7,7 @@ import { environment } from 'src/app/Environments/environment';
   providedIn: 'root'
 })
 export class FlashcardSetService {
-  private baseUrl = environment.apiUrl+'/flashcard-sets';
+  private baseUrl = environment.apiUrl + '/flashcard-sets';
 
   constructor(private http: HttpClient) {}
 
@@ -29,5 +29,17 @@ export class FlashcardSetService {
 
   deleteFlashcardSet(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}/delete`);
+  }
+
+  getAllFlashcardSetsByCategory(category: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/by-category/${category}`);
+  }
+
+  getAllFlashcardSetsByDifficulty(difficulty: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/by-difficulty/${difficulty}`);
+  }
+
+  getAllFlashcardSetsByCategoryAndDifficulty(category: string, difficulty: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/by-category-and-difficulty/${category}/${difficulty}`);
   }
 }

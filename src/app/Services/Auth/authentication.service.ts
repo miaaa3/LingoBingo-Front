@@ -18,4 +18,8 @@ export class AuthenticationService {
   login(authenticationRequest: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, authenticationRequest);
   }
+
+  getAuthenticatedUser(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/user`);
+  }
 }

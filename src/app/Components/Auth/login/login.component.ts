@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit{
     private router: Router,
     private local:LocalService,
     private toastr: ToastrService,
-    private auth:AuthenticationService,
+    private authService: AuthenticationService
 
     ) {
     
@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit{
       
     } ,{ validators: [Validators.required] }
     );
+  
   }
 
   get passwordControl() {
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit{
               Accept: 'application/json',
             })
           };
-    this.auth.login(this.loginForm.value).subscribe(
+    this.authService.login(this.loginForm.value).subscribe(
       res=>{
         this.local.saveData("userApiKey2",res['access_token']);
         
@@ -60,10 +61,13 @@ export class LoginComponent implements OnInit{
       res => {
         this.api.token = res['access_token'];
         this.local.saveData("userApiKey",this.api.token!)
-
+        
         this.api.user = res['user'];
         this.toastr.success('Loged in successfully.', 'Success');
         this.router.navigate(['/Home']);
+        if(this.router.navigate(['/Home'])){
+          this.ngOnInit();
+        }
         setTimeout(() => {
           this.isLoading = false;
         }, 2000);
