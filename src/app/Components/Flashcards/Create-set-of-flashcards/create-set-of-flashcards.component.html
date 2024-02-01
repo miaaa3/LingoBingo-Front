@@ -29,7 +29,6 @@
 
             <div class="mt-20" formArrayName="flashcards">
                 <div class="bg-white rounded-lg shadow-sm mb-4" *ngFor="let flashcard of flashcardsArray; let i = index" [formGroupName]="i">
-                    <!-- Your flashcard controls here -->
                    <div class="flex justify-between border-b-2 py-3 px-4 text-gray-400">
                         <h1 class="font-bold text-lg">{{ i+1 }}</h1>
                         <div class="flex items-center gap-2">

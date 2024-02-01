@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LocalService } from '../Services/Auth/local.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private localService: LocalService, private router: Router) {}
+  constructor(
+    private localService: LocalService,
+    private router: Router,
+    private toastr: ToastrService)
+      {}
 
   canActivate(): boolean {
     const token = this.localService.getData('userApiKey');
@@ -15,7 +20,7 @@ export class AuthGuard implements CanActivate {
       // Token exists, allow navigation
       return true;
     } else {
-      // No token, redirect to home
+      this.toastr.info('You are not authenticated. Please log in to access this resource.', '');
       this.router.navigate(['/Home']);
       return false;
     }
