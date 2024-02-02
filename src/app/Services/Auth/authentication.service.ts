@@ -16,7 +16,7 @@ export class AuthenticationService {
   }
 
   login(authenticationRequest: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, authenticationRequest);
+    return this.http.post(`${this.baseUrl}/login`, authenticationRequest).pipe();
   }
 
   getAuthenticatedUser(): Observable<any> {

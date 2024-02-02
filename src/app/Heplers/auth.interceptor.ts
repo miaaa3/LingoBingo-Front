@@ -11,7 +11,6 @@ import { LocalService } from '../Services/Auth/local.service';
 import { environment } from '../Environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
-const excludedPaths: string[] = ['/Forgot-password', '/Reset-password', '/Register','/Login']; // Define paths to exclude here
 
 
 @Injectable()
@@ -25,10 +24,9 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = this.tokenStorage.getData("userApiKey2");
       const isApiUrl = request.url.startsWith(environment.apiUrl);
 
-      const isExcludedPath = excludedPaths.some(excludedPath => request.url.includes(excludedPath));
-      if (token && isApiUrl && !isExcludedPath) {
+      if (token && isApiUrl) {
           request = request.clone({
-              setHeaders: { Authorization: `Bearer ${token}` }
+            setHeaders: { Authorization: `Bearer ${token}` }
           });
           console.log(token)
       }

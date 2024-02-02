@@ -51,8 +51,10 @@ export class LoginComponent implements OnInit{
               Accept: 'application/json',
             })
           };
+    console.log(this.loginForm.value)
     this.authService.login(this.loginForm.value).subscribe(
       res=>{
+        console.log(res['access_token']);
         this.local.saveData("userApiKey2",res['access_token']);
         
       }
