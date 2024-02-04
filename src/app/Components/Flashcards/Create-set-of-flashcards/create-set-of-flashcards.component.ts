@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateSetOfFlashcardsComponent implements OnInit {
   difficulties: string[] = [];
   categories: string[] = [];
-  numbers: number[] = [];
+    numbers: number[] = [];
   flashcardSet: FlashcardSet = {} as FlashcardSet;
   flashcards: Flashcard[] = [];
   flashcardSetForm!: FormGroup;
@@ -48,7 +48,6 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.numbers = [1];
     this.categories = getQuizCategories();
     this.difficulties = getDifficulties();
 
