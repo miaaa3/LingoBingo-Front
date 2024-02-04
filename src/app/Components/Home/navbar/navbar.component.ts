@@ -32,13 +32,13 @@ export class NavbarComponent {
   isUser: BehaviorSubject<boolean>;
 
   constructor(private local: LocalService) {
-    this.isUser = new BehaviorSubject<boolean>(this.local.getData("userApiKey") !== "");
+    this.isUser = new BehaviorSubject<boolean>(this.local.getData("userApiKey2") !== "");
   }
 
   
 
   logout(): void {
-    this.local.removeData("userApiKey");   
+    this.local.removeData("userApiKey2");   
     this.local.removeData("username");     
   
     this.isUser.next(false); 

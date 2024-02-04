@@ -1,7 +1,31 @@
-<section class="mx-auto p-4 space-y-7">
-    <div class="flex justify-between">
-        <h1 class="text-xl font-semibold">Create new set of Flashcards</h1>
-        <button class="text-base py-1.5 px-3 bg-blue-600 text-white rounded-lg" type="button" (click)="createFlashcardSet()">Create</button>
+    <hr class="border-t border-gray-100">
+    <div [ngClass]="{'fixed-header': isFixedHeaderVisible, 'fixed-header-hidden': !isFixedHeaderVisible}" class="px-48">
+    <div class="flex justify-between items-center my-8">
+        <h1 class="text-xl font-bold text-gray-700">Create a new Set of Flashcards</h1>
+        <button
+        type="button"
+        [disabled]="!flashcardSetForm.valid"
+        [class.bg-blue-500]="flashcardSetForm.valid"
+        [class.bg-gray-200]="!flashcardSetForm.valid"
+        class="text-white px-4 py-2 rounded-lg"
+
+        >
+        Create
+        </button>
+    </div>
+    </div>
+    <div class="flex justify-between items-center  mb-8">
+        <h1 class="text-xl font-bold text-gray-700">Create a new Set of Flashcards</h1>
+        <button
+        type="button"
+        [disabled]="!flashcardSetForm.valid"
+        [class.bg-blue-500]="flashcardSetForm.valid"
+        [class.bg-gray-200]="!flashcardSetForm.valid"
+        class="text-white px-4 py-2 rounded-lg"
+        (click)="createFlashcardSet()"
+        >
+        Create
+        </button>
     </div>
 
     <div class="set-description">
@@ -27,8 +51,8 @@
                 </div>
             </div>
 
-            <div class="mt-20" formArrayName="flashcards">
-                <div class="bg-white rounded-lg shadow-sm mb-4" *ngFor="let flashcard of flashcardsArray; let i = index" [formGroupName]="i">
+            <div class="mt-20" formArrayName="flashcards" cdkDropList (cdkDropListDropped)="onQuestionDrop($event )">
+                <div class="bg-white rounded-lg shadow-sm mb-4" *ngFor="let flashcard of flashcardsArray; let i = index" [formGroupName]="i" cdkDrag>
                    <div class="flex justify-between border-b-2 py-3 px-4 text-gray-400">
                         <h1 class="font-bold text-lg">{{ i+1 }}</h1>
                         <div class="flex items-center gap-2">
@@ -37,7 +61,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
                                       d="M5 7h14M5 12h14M5 17h14"/>
                             </svg>
-                            <svg class="size-5 dark:text-white" aria-hidden="true"
+                            <svg class="delete-svg size-5 dark:text-white" aria-hidden="true" (click)="deleteCard(i)"
                                  xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                 <path fill-rule="evenodd"
                                       d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
@@ -45,11 +69,11 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-16 py-3 px-5">
-                        <input class="w-full h-11  p-2 placeholder:font-medium focus:border-yellow-400 focus:border-b-4"
+                    <div class="grid grid-cols-2 gap-16 py-3 px-9 ">
+                        <input class="w-full h-11  p-2 placeholder:font-medium focus:border-yellow-400 focus:border-b-4 border-b focus:outline-gray-200 focus:outline-1"
                                type="text" name="term" placeholder="Enter Term"
                                formControlName="term">
-                        <input class="w-full h-11  p-2 placeholder:font-medium focus:border-yellow-400 focus:border-b-4"
+                        <input class="w-full h-11  p-2 placeholder:font-medium focus:border-yellow-400 focus:border-b-4 border-b focus:outline-gray-200 focus:outline-1"
                                type="text" name="definition" placeholder="Enter definition"
                                formControlName="definition">
                     </div>
@@ -63,4 +87,5 @@
             </div>
         </form>
     </div>
-</section>
+    
+

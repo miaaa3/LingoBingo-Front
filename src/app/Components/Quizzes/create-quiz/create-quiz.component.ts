@@ -4,7 +4,7 @@ import { Difficulty, getDifficulties } from 'src/app/Models/enums/difficulty.enu
 import { Category, getQuizCategories } from 'src/app/Models/enums/category.enum';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthenticationService } from 'src/app/Services/Auth/authentication.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { RestApiService } from 'src/app/Services/Auth/rest-api.service';
 
 @Component({
@@ -145,4 +145,16 @@ export class CreateQuizComponent implements OnInit {
     const answerControl = answersArray.at(index).get('isCorrect');
     answerControl.setValue(!answerControl.value);
   }
+
+  deleteQuestion(index: number): void {
+    const questions = this.quizForm.get('questions') as FormArray;
+    questions.removeAt(index);
+    this.questionsArray = questions.controls;
+  }
+  
+
+  onQuestionDrop(event: CdkDragDrop<any[]>): void {
+    moveItemInArray((this.quizForm.get('questions') as FormArray).controls, event.previousIndex, event.currentIndex);
+  }
+  
 }
