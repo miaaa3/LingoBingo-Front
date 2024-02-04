@@ -40,7 +40,7 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
       definition: ['']
     }));      
 
-      this.numbers.push(this.numbers.length + 1);
+    this.numbers.push(this.numbers.length + 1);
     this.flashcardsArray = (this.flashcardSetForm.get('flashcards') as FormArray).controls;
 
     }  
@@ -58,7 +58,7 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
       difficulty: [''],
       flashcards: this.formBuilder.array([]),
     });
-      this.flashcardsArray = (this.flashcardSetForm.get('flashcards') as FormArray).controls;
+    this.flashcardsArray = (this.flashcardSetForm.get('flashcards') as FormArray).controls;
 
     this.addNewCard()
 

@@ -17,7 +17,7 @@ export class QuizService {
     return this.http.get<any[]>(`${this.baseUrl}/all`);
   }
 
-  getQuizById(quizId: number): Observable<any> {
+  getQuizById(quizId: number): Observable<any> { 
     return this.http.get<Quiz>(`${this.baseUrl}/getQuizById/${quizId}`);
   }
 

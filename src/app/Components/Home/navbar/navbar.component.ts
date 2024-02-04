@@ -27,6 +27,8 @@ export class NavbarComponent {
 
   zIndexForProfile = 1000;
   openForProfile = false;
+  openForNotification = false;
+  zIndexForNotification = 100;
   isUser: BehaviorSubject<boolean>;
 
   constructor(private local: LocalService) {
@@ -51,6 +53,12 @@ export class NavbarComponent {
 
   toggleDropdownProfile(): void {
     this.openForProfile = !this.openForProfile; 
+  }
+  toggleDropdownNotification(): void {
+    this.openForProfile = !this.openForProfile; 
+  }
+  closeDropdownNotification(): void {
+    this.openForProfile = false; 
   }
 
   closeDropdownProfile(): void {

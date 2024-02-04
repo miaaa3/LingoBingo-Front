@@ -36,16 +36,7 @@ export class LoginComponent implements OnInit{
       
     } ,{ validators: [Validators.required] }
     );
-    this.authService.getAuthenticatedUser().subscribe(
-      user => {
-        const username = user.name;
-        localStorage.setItem("username", username);
-
-      },
-      error => {
-        console.error('Error fetching authenticated user:', error);
-      }
-    );
+  
   }
 
   get passwordControl() {
@@ -60,6 +51,14 @@ export class LoginComponent implements OnInit{
               Accept: 'application/json',
             })
           };
+    console.log(this.loginForm.value)
+    this.authService.login(this.loginForm.value).subscribe(
+      res=>{
+        console.log(res['access_token']);
+        this.local.saveData("userApiKey2",res['access_token']);
+        
+      }
+    )
     this.api.login(this.loginForm.value).subscribe(
       res => {
         this.api.token = res['access_token'];

@@ -59,6 +59,7 @@ export class CategoryContentComponent implements OnInit {
   loadQuizzes(): void {
     this.quizservice.getQuizzesByCategory(this.category).subscribe(
       (quizzesList: Quiz[]) => {
+        console.warn(quizzesList)
         this.quizzes = quizzesList;
       },
       (error) => {
