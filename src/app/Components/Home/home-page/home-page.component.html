@@ -43,17 +43,11 @@
         <h1 class="font-medium text-xl">Recent</h1>
         <div class="p-2 my-4 grid grid-cols-2 gap-6">
             
-            <div class="recent p-6 rounded-xl bg-white border-gray-300 border ">
-                <h3 class="font-medium text-lg">Discover New Horizons</h3>
-                <p class="text-sm">Delve into a world of flashcards covering any subject you desire.</p>
+            <div class="recent flex justify-between p-6 rounded-xl bg-white border-gray-300 border " *ngFor="let recentActivity of recentActivities">
+                <h3 class="font-medium text-lg">{{recentActivity.title}}</h3>
+                <h1 class="py-1 px-2 text-xs rounded-full cursor-pointer bg-[#f3f3f3] ">{{recentActivity.type}}</h1>
             </div>
          
-            <div class="recent p-6 rounded-xl bg-white border-gray-300 border">
-                <h3 class="font-medium text-lg">Discover New Horizons</h3>
-                <p class="text-sm">Delve into a world of flashcards covering any subject you desire.</p>
-            </div>
-    
-           
         </div>
         
     </section>

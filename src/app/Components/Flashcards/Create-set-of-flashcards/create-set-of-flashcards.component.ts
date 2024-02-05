@@ -27,7 +27,6 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private flashcardSetService: FlashcardSetService,
-    private flashcardService: FlashcardService,
     private router: Router,
     private toastr: ToastrService,
 

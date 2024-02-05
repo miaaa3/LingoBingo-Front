@@ -27,6 +27,8 @@ import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flas
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,8 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
     ForgotPasswordComponent,
     CreateSetOfFlashcardsComponent,
     CategoryContentComponent,
-    DisplayFlashcardsComponent
+    DisplayFlashcardsComponent,
+  
   ],
   imports: [
     BrowserModule,
