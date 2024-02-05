@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
       {}
 
   canActivate(): boolean {
-    const token = this.localService.getData('userApiKey');
+    const token = this.localService.getData('userApiKey2');
 
     if (token) {
       // Token exists, allow navigation

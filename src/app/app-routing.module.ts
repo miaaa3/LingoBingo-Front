@@ -9,7 +9,7 @@ import { ResetPasswordComponent } from './Components/Auth/reset-password/reset-p
 import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgot-password.component';
 import { SearchFlashcardComponent } from './Components/Search-flashcard/search-flashcard.component';
 import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
-import { CategoryContentComponent } from './Components/category-content/category-content.component';
+import { CategoryContentComponent } from './Components/Category-content/category-content.component';
 import { DisplayQuizComponent } from './Components/Quizzes/Display-quiz/display-quiz.component';
 import { AuthGuard } from './Guard/auth.guard';
 import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flashcards/display-flashcards.component';
@@ -20,14 +20,15 @@ const routes: Routes = [
   {path:'Search', component:SearchFlashcardComponent, canActivate: [AuthGuard]},
   {path:'All-quizzes', component:AllQuizzesComponent, canActivate: [AuthGuard]},
   {path:'Create-quiz', component:CreateQuizComponent, canActivate: [AuthGuard]},
-  {path:'Login', component:LoginComponent},
-  {path:'Register', component:RegisterComponent},
-  {path:'Reset-password', component:ResetPasswordComponent},
-  {path:'Forgot-password', component:ForgotPasswordComponent},
   {path:'Create-flashcard', component:CreateSetOfFlashcardsComponent, canActivate: [AuthGuard]},
   {path:"Category-content/:category",component:CategoryContentComponent, canActivate: [AuthGuard]},
-  { path: 'Display-quiz/:id', component: DisplayQuizComponent, canActivate: [AuthGuard] }, 
-  { path: 'Display-flashcard/:id', component: DisplayFlashcardsComponent, canActivate: [AuthGuard] }, 
+  {path: 'Display-quiz/:id', component: DisplayQuizComponent, canActivate: [AuthGuard] }, 
+  {path: 'Display-flashcard/:id', component: DisplayFlashcardsComponent, canActivate: [AuthGuard] }, 
+  {path:'Reset-password', component:ResetPasswordComponent},
+  {path:'Forgot-password', component:ForgotPasswordComponent},
+  {path:'Register', component:RegisterComponent},
+  {path:'Login', component:LoginComponent},
+
   {path:'', redirectTo:'Home', pathMatch:'full'},
   {path:'**',redirectTo:'Home'},
   

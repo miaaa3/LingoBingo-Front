@@ -41,7 +41,7 @@ export class AppComponent implements OnInit{
 
   onlyOneComponent(){
     const currentRoute = this.router.url;
-    const endpoints = [ '/Login', '/Register', 'Reset-password','Forgot-password'];
+    const endpoints = [ '/Login', '/Register', 'Reset-password','Forgot-password', 'dashboard'];
     return endpoints.some(endpoint => currentRoute.includes(endpoint));
   }
 

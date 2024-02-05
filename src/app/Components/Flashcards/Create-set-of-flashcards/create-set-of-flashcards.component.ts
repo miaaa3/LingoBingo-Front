@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { Difficulty, getDifficulties } from 'src/app/Models/enums/difficulty.enum';
 import { Category, getQuizCategories } from 'src/app/Models/enums/category.enum';
@@ -8,6 +8,7 @@ import { FlashcardSetService } from 'src/app/Services/Flashcards/flashcardSet.se
 import { FlashcardSet } from 'src/app/Models/flashcard-set';
 import { Flashcard } from 'src/app/Models/flashcard';
 import { ToastrService } from 'ngx-toastr';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-create-set-of-flashcards',
@@ -17,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateSetOfFlashcardsComponent implements OnInit {
   difficulties: string[] = [];
   categories: string[] = [];
-  numbers: number[] = [];
+    numbers: number[] = [];
   flashcardSet: FlashcardSet = {} as FlashcardSet;
   flashcards: Flashcard[] = [];
   flashcardSetForm!: FormGroup;
@@ -26,7 +27,6 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private flashcardSetService: FlashcardSetService,
-    private flashcardService: FlashcardService,
     private router: Router,
     private toastr: ToastrService,
 
@@ -36,8 +36,8 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
   addNewCard(): void {
     const flashcards = this.flashcardSetForm.get('flashcards') as FormArray;
     flashcards.push(this.formBuilder.group({
-      term: [''],
-      definition: ['']
+      term:  ['',Validators.required],
+      definition:  ['',Validators.required],
     }));      
 
     this.numbers.push(this.numbers.length + 1);
@@ -48,12 +48,11 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.numbers = [1];
     this.categories = getQuizCategories();
     this.difficulties = getDifficulties();
 
     this.flashcardSetForm = this.formBuilder.group({
-      name: [''],
+      name:  ['',Validators.required],
       description: [''],
       category: [''],
       difficulty: [''],
@@ -83,5 +82,31 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
         }
       );
   
+  }
+  
+  deleteCard(index: number): void {
+    const flashcards = this.flashcardSetForm.get('flashcards') as FormArray;
+  
+    // Check if there is at least one question before deletion
+    if (flashcards.length <= 1) {
+      this.toastr.warning('The quiz must have at least one question.', 'Warning');
+      return;
+    }
+  
+    flashcards.removeAt(index);
+    this.flashcardsArray = flashcards.controls;
+  }
+
+  isFixedHeaderVisible = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.isFixedHeaderVisible = scrollPosition > 100;
+  }
+  
+
+  onQuestionDrop(event: CdkDragDrop<any[]>): void {
+    moveItemInArray(this.flashcardsArray , event.previousIndex, event.currentIndex);
   }
 }

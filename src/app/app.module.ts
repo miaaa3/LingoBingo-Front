@@ -21,9 +21,12 @@ import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgo
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr, ToastrModule } from 'ngx-toastr';
 import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
-import { CategoryContentComponent } from './Components/category-content/category-content.component';
-import { AuthInterceptor } from './Heplers/auth.interceptor';
+import { CategoryContentComponent } from './Components/Category-content/category-content.component';
+import { AuthInterceptor } from './Helpers/auth.interceptor';
 import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flashcards/display-flashcards.component';
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+
+
 
 
 @NgModule({
@@ -43,7 +46,8 @@ import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flas
     ForgotPasswordComponent,
     CreateSetOfFlashcardsComponent,
     CategoryContentComponent,
-    DisplayFlashcardsComponent
+    DisplayFlashcardsComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -53,6 +57,8 @@ import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flas
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    CdkDropList,
+    CdkDrag
 
   ],
   providers: [

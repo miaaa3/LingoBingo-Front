@@ -8,6 +8,7 @@ import { Quiz } from 'src/app/Models/quiz.model';
 import { FlashcardSetService } from 'src/app/Services/Flashcards/flashcardSet.service';
 import { QuizApiService } from 'src/app/Services/Quiz/quiz-api.service';
 import { QuizService } from 'src/app/Services/Quiz/quiz.service';
+import { RecentActivityService } from 'src/app/Services/recent-activity.service';
 
 @Component({
   selector: 'app-category-content',
@@ -15,6 +16,7 @@ import { QuizService } from 'src/app/Services/Quiz/quiz.service';
   styleUrls: ['./category-content.component.css']
 })
 export class CategoryContentComponent implements OnInit {
+
   category!: Category;
   quizzes: Quiz[] = [];
   flashcardSets: FlashcardSet[] = [];
@@ -25,7 +27,8 @@ export class CategoryContentComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private quizservice: QuizService,
-    private flashcardSetService: FlashcardSetService
+    private flashcardSetService: FlashcardSetService,
+    private recentActivityService: RecentActivityService
   ) {
     this.route.params.subscribe(params => {
       const categoryName = params['category'];
@@ -34,7 +37,15 @@ export class CategoryContentComponent implements OnInit {
     });
   }
 
-
+  saveRecentActivity(entityId: number, activityType: string): void {
+    // Assuming you have a RecentActivityService with a method to save recent activities
+    this.recentActivityService.saveRecentActivity({
+      entityId,
+      activityType
+    }).subscribe(() => {
+      console.log('Recent activity saved successfully!');
+    });
+  }
 
   getBackgroundColor(category: string): string {
     const bgColors: Record<string, string> = BgColors;
