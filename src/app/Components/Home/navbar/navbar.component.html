@@ -19,16 +19,28 @@
     </div>
     
     <div class="flex gap-2">
-      <div [style.zIndex]="zIndexForProfile" (click.away)="closeDropdownNotification()" class="relative" [attr.x-data]="{ open: false }">
+      <div [style.zIndex]="zIndexForNotification" (click.away)="closeDropdownNotification()" class="relative" [attr.x-data]="{ open: false }">
         <button type="button" (click)="toggleDropdownNotification()" class="flex text-sm rounded-full border md:me-0 focus:ring-4 focus:ring-gray-300 active:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button">
           <svg class="size-9 p-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 21">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 3.464V1.1m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175C15 15.4 15 16 14.462 16H1.538C1 16 1 15.4 1 14.807c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 8 3.464ZM4.54 16a3.48 3.48 0 0 0 6.92 0H4.54Z"/>
           </svg>
         </button>
-        <div *ngIf="openForNotification" [@dropdownAnimation]="'visible'" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
-          <div class="bg-white rounded-md shadow dark-mode:bg-gray-800">
-            <a (click)="closeDropdown()" class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-t-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline" routerLink="/Create-quiz">New Quiz</a>
-          </div>
+        <div *ngIf="openForNotification" [@dropdownAnimation]="'visible'" class="absolute right-0 w-full mt-2 mr-12 origin-top-right rounded-md shadow-lg md:w-48">
+          <div *ngIf="openForNotification" [@dropdownAnimation]="'visible'" class="absolute right-0 w-full mt-2 mr-12 origin-top-right rounded-md shadow-lg md:w-48">
+            <div class="flex items-center justify-center p-6 w-60 h-44 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-md shadow-lg">
+                <svg class="w-12 h-12 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g>
+                        <path fill="none" d="M0 0h24v24H0z"/>
+                        <path d="M18.586 20H4a.5.5 0 0 1-.4-.8l.4-.533V10c0-1.33.324-2.584.899-3.687L1.393 2.808l1.415-1.415 19.799 19.8-1.415 1.414L18.586 20zM20 15.786L7.559 3.345A8 8 0 0 1 20 10v5.786zM9.5 21h5a2.5 2.5 0 1 1-5 0z"/>
+                    </g>
+                </svg>
+                <p class="text-white ml-4 text-md font-medium">No notifications for now</p>
+            </div>
+        </div>
+        
+        
+        
+          
         </div>
       </div>
       <div>

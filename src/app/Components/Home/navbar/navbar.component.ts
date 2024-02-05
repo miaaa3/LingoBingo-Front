@@ -55,10 +55,10 @@ export class NavbarComponent {
     this.openForProfile = !this.openForProfile; 
   }
   toggleDropdownNotification(): void {
-    this.openForProfile = !this.openForProfile; 
+    this.openForNotification = !this.openForNotification; 
   }
   closeDropdownNotification(): void {
-    this.openForProfile = false; 
+    this.openForNotification = false; 
   }
 
   closeDropdownProfile(): void {
