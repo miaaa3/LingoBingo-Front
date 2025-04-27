@@ -7,7 +7,7 @@ import { HomePageComponent } from './Components/Home/home-page/home-page.compone
 import { NavbarComponent } from './Components/Home/navbar/navbar.component';
 import { SidebarComponent } from './Components/Home/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchFlashcardComponent } from './Components/Search-flashcard/search-flashcard.component';
+import { SearchFlashcardComponent } from './Components/Flashcards/search-flashcard/search-flashcard.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AllQuizzesComponent } from './Components/Quizzes/All-quizzes/all-quizzes.component';
 import { DisplayQuizComponent } from './Components/Quizzes/Display-quiz/display-quiz.component';
@@ -21,7 +21,7 @@ import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgo
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr, ToastrModule } from 'ngx-toastr';
 import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
-import { CategoryContentComponent } from './Components/Category-content/category-content.component';
+import { CategoryContentComponent } from './Components/Quizzes/category-content/category-content.component';
 import { AuthInterceptor } from './Helpers/auth.interceptor';
 import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flashcards/display-flashcards.component';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';

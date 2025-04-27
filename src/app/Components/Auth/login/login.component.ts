@@ -43,46 +43,49 @@ export class LoginComponent implements OnInit{
     return this.loginForm.get('password');
   }
   
-  async login() {
+  login() {
     this.isLoading = true;
+  
     this.api.httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-            })
-          };
-    console.log(this.loginForm.value)
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      })
+    };
+  
+    console.log(this.loginForm.value);
+  
     this.authService.login(this.loginForm.value).subscribe(
-      res=>{
-        console.log(res['access_token']);
-        this.local.saveData("userApiKey2",res['access_token']);
-        
-      }
-    )
-    this.api.login(this.loginForm.value).subscribe(
       res => {
-        this.api.token = res['access_token'];
-        this.local.saveData("userApiKey",this.api.token!)
-        
+        console.log(res['access_token']);
+  
+        // Save token locally
+        this.local.saveData("userApiKey2", res['access_token']);
+  
+        // Save user data if it's included in response
         this.api.user = res['user'];
-        this.toastr.success('Loged in successfully.', 'Success');
-        this.router.navigate(['/Home']);
-        if(this.router.navigate(['/Home'])){
-          this.ngOnInit();
-        }
+  
+        // Success toast
+        this.toastr.success('Logged in successfully.', 'Success');
+  
+        // Navigate to Home
+        this.router.navigate(['/Home']).then(() => {
+          this.ngOnInit();  // Refresh component state if needed
+        });
+  
+        // Stop loading after 2 sec (or directly after navigation if you prefer)
         setTimeout(() => {
           this.isLoading = false;
         }, 2000);
-      
-        
       },
-      err =>{
+      err => {
+        console.error("Login error:", err);
         this.toastr.error('Error during login.', 'Error');
         this.isLoading = false;
-      
       }
     );
   }
+  
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
