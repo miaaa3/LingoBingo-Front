@@ -25,6 +25,7 @@ import { CategoryContentComponent } from './Components/Quizzes/category-content/
 import { AuthInterceptor } from './Helpers/auth.interceptor';
 import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flashcards/display-flashcards.component';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import { DisplaySetOfFlashcardsComponent } from './Components/Flashcards/display-set-of-flashcards/display-set-of-flashcards.component';
 
 
 
@@ -47,6 +48,7 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
     CreateSetOfFlashcardsComponent,
     CategoryContentComponent,
     DisplayFlashcardsComponent,
+    DisplaySetOfFlashcardsComponent,
   
   ],
   imports: [
