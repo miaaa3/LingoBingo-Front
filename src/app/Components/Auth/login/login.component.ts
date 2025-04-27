@@ -39,64 +39,6 @@ export class LoginComponent implements OnInit {
   get passwordControl() {
     return this.loginForm.get('password');
   }
-<<<<<<< HEAD
-
-  // Method to handle login form submission
-  async login() {
-    this.isLoading = true;  // Start loading indicator
-
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value); // Log the form data for debugging
-
-      // Set the request headers for the API
-      this.api.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        }),
-      };
-
-      // Call the authentication service to log in
-      this.authService.login(this.loginForm.value).subscribe(
-        res => {
-          console.log(res['access_token']);
-          this.local.saveData("userApiKey2", res['access_token']); // Save access token
-        },
-        err => {
-          this.toastr.error('Error during login.', 'Error'); // Display error if login fails
-          this.isLoading = false;
-        }
-      );
-
-      // API call for login
-      this.api.login(this.loginForm.value).subscribe(
-        res => {
-          // Set token in API and save it locally
-          this.api.token = res['access_token'];
-          this.local.saveData("userApiKey", this.api.token!);
-
-          // Store user info
-          this.api.user = res['user'];
-
-          // Display success message and navigate to home
-          this.toastr.success('Logged in successfully.', 'Success');
-          this.router.navigate(['/Home']);
-          
-          // Reset loading state
-          this.isLoading = false;
-        },
-        err => {
-          // Error handling
-          this.toastr.error('Error during login.', 'Error');
-          this.isLoading = false;
-        }
-      );
-    } else {
-      // Handle invalid form state
-      this.toastr.error('Please fill out the form correctly.', 'Error');
-      this.isLoading = false;
-    }
-=======
   
   login() {
     this.isLoading = true;
@@ -139,7 +81,6 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       }
     );
->>>>>>> c37684ccfd37e055bf5376352e72d11f2d8904cc
   }
   
 
