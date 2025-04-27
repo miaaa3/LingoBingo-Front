@@ -12,33 +12,30 @@ import { RestApiService } from 'src/app/Services/Auth/rest-api.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
-    
+export class LoginComponent implements OnInit {
+  
   loginForm!: FormGroup;
-  showPassword: boolean = false;
+  showPassword: boolean = false;  // For toggling password visibility
   isLoading = false;
 
   constructor(
     private api: RestApiService,
     private fb: FormBuilder,
     private router: Router,
-    private local:LocalService,
+    private local: LocalService,
     private toastr: ToastrService,
     private authService: AuthenticationService
+  ) {}
 
-    ) {
-    
-  }
   ngOnInit(): void {
+    // Initialize the form with validators
     this.loginForm = this.fb.group({
-      email: [null, <any>[Validators.required, Validators.email]],
-      password: [null, <any>[Validators.required, Validators.minLength(8)]],
-      
-    } ,{ validators: [Validators.required] }
-    );
-  
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(8)]],
+    });
   }
 
+  // Getter for password form control
   get passwordControl() {
     return this.loginForm.get('password');
   }
@@ -87,6 +84,7 @@ export class LoginComponent implements OnInit{
   }
   
 
+  // Toggle password visibility function
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
