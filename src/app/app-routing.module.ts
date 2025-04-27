@@ -7,12 +7,12 @@ import { LoginComponent } from './Components/Auth/login/login.component';
 import { RegisterComponent } from './Components/Auth/register/register.component';
 import { ResetPasswordComponent } from './Components/Auth/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgot-password.component';
-import { SearchFlashcardComponent } from './Components/Search-flashcard/search-flashcard.component';
 import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
-import { CategoryContentComponent } from './Components/Category-content/category-content.component';
 import { DisplayQuizComponent } from './Components/Quizzes/Display-quiz/display-quiz.component';
 import { AuthGuard } from './Guard/auth.guard';
 import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flashcards/display-flashcards.component';
+import { SearchFlashcardComponent } from './Components/Flashcards/search-flashcard/search-flashcard.component';
+import { CategoryContentComponent } from './Components/Quizzes/category-content/category-content.component';
 
 
 const routes: Routes = [
