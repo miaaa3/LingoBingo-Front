@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
   get passwordControl() {
     return this.loginForm.get('password');
   }
+<<<<<<< HEAD
 
   // Method to handle login form submission
   async login() {
@@ -95,7 +96,52 @@ export class LoginComponent implements OnInit {
       this.toastr.error('Please fill out the form correctly.', 'Error');
       this.isLoading = false;
     }
+=======
+  
+  login() {
+    this.isLoading = true;
+  
+    this.api.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      })
+    };
+  
+    console.log(this.loginForm.value);
+  
+    this.authService.login(this.loginForm.value).subscribe(
+      res => {
+        console.log(res['access_token']);
+  
+        // Save token locally
+        this.local.saveData("userApiKey2", res['access_token']);
+  
+        // Save user data if it's included in response
+        this.api.user = res['user'];
+  
+        // Success toast
+        this.toastr.success('Logged in successfully.', 'Success');
+  
+        // Navigate to Home
+        this.router.navigate(['/Home']).then(() => {
+          this.ngOnInit();  // Refresh component state if needed
+        });
+  
+        // Stop loading after 2 sec (or directly after navigation if you prefer)
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
+      },
+      err => {
+        console.error("Login error:", err);
+        this.toastr.error('Error during login.', 'Error');
+        this.isLoading = false;
+      }
+    );
+>>>>>>> c37684ccfd37e055bf5376352e72d11f2d8904cc
   }
+  
 
   // Toggle password visibility function
   togglePasswordVisibility() {
