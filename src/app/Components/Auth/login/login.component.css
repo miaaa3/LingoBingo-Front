@@ -7,10 +7,14 @@
   height: 24px;
   animation: spin 1s linear infinite;
   margin-left: auto;
-  margin-top: 50px;
   margin-right: auto;
   display: block;
 }
+/* Adjust the position of the form */
+.login-form-container {
+  margin-top: 80px; /* You can adjust the value to control how far down the form should go */
+}
+
 
 @keyframes spin {
   0% {
