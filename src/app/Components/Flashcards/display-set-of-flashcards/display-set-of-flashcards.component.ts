@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./display-set-of-flashcards.component.css']
 })
 export class DisplaySetOfFlashcardsComponent {
+  
 
 }
