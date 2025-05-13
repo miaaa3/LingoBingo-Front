@@ -26,6 +26,7 @@ import { AuthInterceptor } from './Helpers/auth.interceptor';
 import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flashcards/display-flashcards.component';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { DisplaySetOfFlashcardsComponent } from './Components/Flashcards/display-set-of-flashcards/display-set-of-flashcards.component';
+import { GameLobbyComponent } from './Components/Game/game-lobby/game-lobby.component';
 
 
 
@@ -49,6 +50,7 @@ import { DisplaySetOfFlashcardsComponent } from './Components/Flashcards/display
     CategoryContentComponent,
     DisplayFlashcardsComponent,
     DisplaySetOfFlashcardsComponent,
+    GameLobbyComponent,
   
   ],
   imports: [

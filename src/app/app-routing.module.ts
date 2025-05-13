@@ -14,6 +14,7 @@ import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flas
 import { SearchFlashcardComponent } from './Components/Flashcards/search-flashcard/search-flashcard.component';
 import { CategoryContentComponent } from './Components/Quizzes/category-content/category-content.component';
 import { DisplaySetOfFlashcardsComponent } from './Components/Flashcards/display-set-of-flashcards/display-set-of-flashcards.component';
+import { GameLobbyComponent } from './Components/Game/game-lobby/game-lobby.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,9 @@ const routes: Routes = [
   {path:"Category-content/:category",component:CategoryContentComponent, canActivate: [AuthGuard]},
   {path: 'Display-quiz/:id', component: DisplayQuizComponent, canActivate: [AuthGuard] }, 
   {path: 'Display-flashcard/:id', component: DisplayFlashcardsComponent, canActivate: [AuthGuard] }, 
-  {path: 'Display-set-of-flashcard', component: DisplaySetOfFlashcardsComponent, canActivate: [AuthGuard] }, 
+  {path: 'Display-set-of-flashcard/:id', component: DisplaySetOfFlashcardsComponent, canActivate: [AuthGuard] }, 
+  {path: 'GameLobby', component: GameLobbyComponent, canActivate: [AuthGuard] }, 
+
 
   {path:'Reset-password', component:ResetPasswordComponent},
   {path:'Forgot-password', component:ForgotPasswordComponent},

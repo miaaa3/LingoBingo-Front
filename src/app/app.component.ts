@@ -10,6 +10,7 @@ import { QuizApiService } from './Services/Quiz/quiz-api.service';
 import { RestApiService } from './Services/Auth/rest-api.service';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from './Services/Auth/authentication.service';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +51,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    initFlowbite();
 
 
     // this.loadQuestions()
@@ -113,5 +115,6 @@ export class AppComponent implements OnInit{
     });
   }
 
+ 
   
 }

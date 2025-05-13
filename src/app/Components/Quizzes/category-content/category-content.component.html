@@ -14,7 +14,7 @@
     <div class="p-2 my-2">
         <h1 class="font-medium text-xl" *ngIf="flashcardSets && flashcardSets.length > 0">Sets of Flashcards</h1>
         <div class="p-2 mt-4 grid grid-cols-3 gap-5 " >
-            <div [ngStyle]="{'background-color': getBackgroundColor(category), }" class="flex justify-between items-center p-4 border rounded-lg cursor-pointer shadow-md " *ngFor="let flashcardSet of flashcardSets" [routerLink]="'/Display-flashcard/' + flashcardSet.id" (click)="saveRecentActivity(flashcardSet.id, 'FLASHCARD_SET')">
+            <div [ngStyle]="{'background-color': getBackgroundColor(category), }" class="flex justify-between items-center p-4 border rounded-lg cursor-pointer shadow-md " *ngFor="let flashcardSet of flashcardSets" [routerLink]="'/Display-set-of-flashcard/' + flashcardSet.id" (click)="saveRecentActivity(flashcardSet.id, 'FLASHCARD_SET')">
                 <h1 class="font-medium">{{flashcardSet.name}}</h1> 
                 <h1 class="py-1 px-2 text-xs rounded-full cursor-pointer bg-[#f3f3f3] ">{{flashcardSet.difficulty}}</h1>
             </div>

@@ -2,7 +2,7 @@
     <app-navbar ></app-navbar>
     <router-outlet *ngIf="!shouldDisplay()"></router-outlet>
     <body *ngIf="shouldDisplay()" class="flex min-h-screen gap-6 mr-2 pb-3 px-7">
-            <div class="w-full mt-16 px-7 relative overflow-x-auto p-5 bg-[#f6f7fb] rounded-xl">
+            <div class="w-full mt-24 px-7 relative overflow-hidden p-5 bg-[#f6f7fb] rounded-xl">
                 <router-outlet></router-outlet>
             </div>
     </body>
