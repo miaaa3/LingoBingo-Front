@@ -1,16 +1,40 @@
-.fixed-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    align-items: center; 
-    background-color: #f6f7fb; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    transition: background-color 0.3s ease;
-  }
-  
-  .fixed-header-hidden {
-    display: none;
-  }
-  
+/* Adjust layout for image upload and description */
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ml-4 {
+  margin-left: 1rem;
+}
+/* Styling for file input button */
+input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 5px;
+  background-color: #f6f7fb; /* Same background color as the input fields */
+  color: #333; /* Same text color */
+  border: 1px solid #ccc; /* Same border color */
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: #f6f7fb; /* Match input background color */
+  color: #333; /* Match text color */
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #ccc; /* Match border color */
+}
+
+input[type="file"]:hover::file-selector-button {
+  background-color: #e8e8e8; /* Slightly darker on hover */
+}
+
+input[type="file"]:focus {
+  outline: none;
+  border-color: #4CAF50; /* Green focus border for consistency */
+  background-color: #e8f5e9; /* Light green background on focus */
+}
+
