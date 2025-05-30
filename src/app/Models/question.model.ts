@@ -13,7 +13,7 @@ export class Question {
   explanation!: string;
   tip!: string;
   tags!: string[];
-  quizId!: number;
+  id!: number;
   userAnswer!: string | null;
 
   // questionId!: number;

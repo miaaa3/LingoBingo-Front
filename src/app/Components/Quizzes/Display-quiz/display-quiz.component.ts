@@ -11,7 +11,7 @@ import { BgColors } from 'src/app/Models/BgColors';
   styleUrls: ['./display-quiz.component.css'],
 })
 export class DisplayQuizComponent implements OnInit {
-  quizId!: number;
+  id!: number;
   quiz: Quiz = new Quiz();
   questions: Question[] = [];
   currentQuestionIndex: number = 0;
@@ -21,13 +21,13 @@ export class DisplayQuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.quizId = params['id'];
+      this.id = params['id'];
       this.getQuizById();
     });
   }
 
   getQuizById() {
-    this.quizService.getQuizById(this.quizId).subscribe(
+    this.quizService.getQuizById(this.id).subscribe(
       (quiz: Quiz) => {
         this.quiz = quiz;
         this.questions = quiz.questions.map((question) => ({

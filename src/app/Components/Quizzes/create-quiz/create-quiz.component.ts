@@ -1,7 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
-import { Difficulty, getDifficulties } from 'src/app/Models/enums/difficulty.enum';
-import { Category, getQuizCategories } from 'src/app/Models/enums/category.enum';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -16,7 +14,7 @@ export class CreateQuizComponent implements OnInit {
   difficulties: string[] = [];
   categories: string[] = [];
   numbers: number[] = [];
-  quizId: number = 28;
+  id: number = 28;
   quizForm!: FormGroup;
   questionsArray: AbstractControl[] = [];
   imageFile: File | null = null; // Add this to store the image file
@@ -32,7 +30,6 @@ export class CreateQuizComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input && input.files) {
       this.imageFile = input.files[0];
-      console.log('Selected image:', this.imageFile);
     }
   }
   
@@ -67,11 +64,11 @@ export class CreateQuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.numbers = [1];
-    this.categories = getQuizCategories();
-    this.difficulties = getDifficulties();
+    //this.categories = getQuizCategories();
+    //this.difficulties = getDifficulties();
 
     this.quizForm = this.formBuilder.group({
-      quizName: [''],
+      name: [''],
       category: [''],
       difficulty: [''],
       description: [''],
@@ -87,7 +84,7 @@ export class CreateQuizComponent implements OnInit {
   async onSubmit() {
     if (this.quizForm.valid) {
       const formData = new FormData();
-      formData.append('quizName', this.quizForm.value.quizName);
+      formData.append('name', this.quizForm.value.name);
       formData.append('category', this.quizForm.value.category);
       formData.append('difficulty', this.quizForm.value.difficulty);
       formData.append('description', this.quizForm.value.description);
@@ -98,7 +95,7 @@ export class CreateQuizComponent implements OnInit {
       }
   
       const lastIdResponse = await this.api.getLastId().toPromise();
-      this.quizId = lastIdResponse['quizId'];
+      this.id = lastIdResponse['id'];
   
       // Push all questions to the form data as well
       formData.append('questions', JSON.stringify(this.quizForm.value.questions));

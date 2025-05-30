@@ -4,7 +4,6 @@ import { HttpClient} from '@angular/common/http';
 import { catchError, map, Observable, of, OperatorFunction } from 'rxjs';
 import { Question } from '../../Models/question.model'; 
 import { ApiEndPoints } from './api-endpoints.service';
-import { Difficulty } from '../../Models/enums/difficulty.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -18,26 +17,6 @@ export class QuizApiService {
       this.mappeddata()
     );
   }
-
-  getQuestionsByCategory(category:string):Observable<Question[]>{
-    return this.http.get(this.api.QUIZ_API_ENDPOINTS.questionByCategory(category)).pipe(
-      this.mappeddata()
-    )
-  }
-  getQuestionsByDifficulty(difficulty:string):Observable<Question[]>{
-    return this.http.get(this.api.QUIZ_API_ENDPOINTS.questionByDifficulty(difficulty)).pipe(
-      this.mappeddata()
-    )
-  }
-
-  getQuestionsByDifficultyAndcategory(difficulty: string, category: string):Observable<Question[]>{
-    return this.http.get(this.api.QUIZ_API_ENDPOINTS.questionByDifficultyAndCategory(difficulty,category)).pipe(
-      this.mappeddata()
-    )
-  }
-
-
-
   mappeddata():OperatorFunction<any,Question[]>{
     return map((data: any) => {
       if (Array.isArray(data)) {

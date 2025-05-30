@@ -1,11 +1,11 @@
-import { Category } from "./enums/category.enum";
-import { Difficulty } from "./enums/difficulty.enum";
 import { Question } from "./question.model";
 
 export class Quiz {
-    quizId!: number;
-    quizName!: string;
-    category!: Category;
-    difficulty!: Difficulty;
+    id!: number;
+    name!: string;
+    description!: string;
+    createdAt?: Date;
     questions!: Question[];
+    isPublic?: boolean; // Indicates if the set is public or private
+
 }

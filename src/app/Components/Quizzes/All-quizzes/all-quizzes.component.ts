@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { getQuizCategories } from 'src/app/Models/enums/category.enum';
 import { Quiz } from 'src/app/Models/quiz.model';
 import { QuizService } from 'src/app/Services/Quiz/quiz.service';
 
@@ -18,7 +17,7 @@ export class AllQuizzesComponent implements OnInit{
     private quizService: QuizService,
     private router:Router
       ) {
-    this.quizCategories = getQuizCategories();
+//    this.quizCategories = getQuizCategories();
   }
   async ngOnInit(): Promise<void> {
     this.quizzes = await this.quizService.getAllQuizzes().toPromise();

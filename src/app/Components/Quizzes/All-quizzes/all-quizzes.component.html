@@ -2,16 +2,16 @@
     <h1 class="text-center text-4xl font-bold">Navigate our Quizzes</h1>
         <div *ngIf="!isLoading">
             <div class="grid grid-cols-3 gap-5 p-3 *:flex-col *:p-3 *:space-y-5 *:rounded-md *:border *:bg-white " >
-                <div class="group cursor-pointer" *ngFor="let item of quizzes" [routerLink]="'/Display-quiz/' + item.quizId">
+                <div class="group cursor-pointer" *ngFor="let item of quizzes" [routerLink]="'/Display-quiz/' + item.id">
                     <div class="flex justify-between">
-                        <p class="text-xl">{{item.quizName}}</p>
+                        <p class="text-xl">{{item.name}}</p>
                         <svg class="size-5 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 19">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
                         </svg>
                     </div>    
                     <div class="flex justify-between *:rounded-3xl *:py-0.5 *:px-2 *:text-[12px]">   
                         <p class="bg-perano-500">{{item.questions.length}} Questions</p>
-                        <p class="bg-red-500 text-white">{{item.difficulty}}</p>
+                        <!-- <p class="bg-red-500 text-white">{{item.difficulty}}</p> -->
                     </div>
                 </div>
             </div>

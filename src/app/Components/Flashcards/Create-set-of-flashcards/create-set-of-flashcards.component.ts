@@ -1,7 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
-import { Difficulty, getDifficulties } from 'src/app/Models/enums/difficulty.enum';
-import { Category, getQuizCategories } from 'src/app/Models/enums/category.enum';
 import { Router } from '@angular/router';
 import { FlashcardSetService } from 'src/app/Services/Flashcards/flashcardSet.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,8 +11,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./create-set-of-flashcards.component.css']
 })
 export class CreateSetOfFlashcardsComponent implements OnInit {
-  difficulties: string[] = [];
-  categories: string[] = [];
   numbers: number[] = [];
   flashcardSetForm!: FormGroup;
   flashcardsArray: AbstractControl[] = [];
@@ -34,7 +30,6 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
     flashcards.push(this.formBuilder.group({
       term: ['', Validators.required],
       definition: ['', Validators.required],
-      image: [null],  // Adding image field for each flashcard
     }));
     this.numbers.push(this.numbers.length + 1);
     this.flashcardsArray = (this.flashcardSetForm.get('flashcards') as FormArray).controls;
@@ -51,14 +46,10 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categories = getQuizCategories();
-    this.difficulties = getDifficulties();
 
     this.flashcardSetForm = this.formBuilder.group({
       name: ['', Validators.required],
       description: [''],
-      category: [''],
-      difficulty: [''],
       flashcards: this.formBuilder.array([]),
     });
 
@@ -68,10 +59,9 @@ export class CreateSetOfFlashcardsComponent implements OnInit {
   }
 
   createFlashcardSet(): void {
+    console.log('Creating flashcard set with data:', this.flashcardSetForm.value);
     const flashcardSet = { ...this.flashcardSetForm.value };
-    flashcardSet.category = flashcardSet.category.toUpperCase();
-    flashcardSet.difficulty = flashcardSet.difficulty.toUpperCase();
-
+   
     this.flashcardSetService.addFlashcardSet(flashcardSet).subscribe(
       (response) => {
         this.toastr.success('Flashcard set created successfully', 'Success');

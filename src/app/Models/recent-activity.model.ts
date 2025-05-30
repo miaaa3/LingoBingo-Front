@@ -6,7 +6,6 @@ export class RecentActivity {
     userId?: number;
     type: string; // You can use an enum for activity types
     title: string;
-    category: string;
     quiz: Quiz;
     flashcardSet: FlashcardSet;
     timestamp?: Date;

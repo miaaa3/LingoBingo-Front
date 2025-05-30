@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { Difficulty } from './Models/enums/difficulty.enum';
-import { Category } from './Models/enums/category.enum';
 import { Question } from './Models/question.model';
 import { GenerateQuizService } from './Services/Quiz/generate-quiz.service';
 import { LocalService } from './Services/Auth/local.service';
@@ -109,10 +107,10 @@ export class AppComponent implements OnInit{
     //   this.testQuiz = data;
     //   console.warn(this.testQuiz)
     // });
-    this.generateQuiz.generateQuizzesForCategory(Category.CMS).subscribe(data => {
-      this.quizzesByCategory = data;
-      console.warn(this.quizzesByCategory)
-    });
+    //this.generateQuiz.generateQuizzesForCategory(Category.CMS).subscribe(data => {
+      //this.quizzesByCategory = data;
+      //console.warn(this.quizzesByCategory)
+    //});
   }
 
  
