@@ -1,18 +1,14 @@
-<div class="wrapper">
+<!-- STEP 1: Enter Game Code -->
+<div class="wrapper" *ngIf="!showProfileStep">
   <div class="title">LingoBingo</div>
-
   <div class="join-game-box">
     <h2>Enter Game Code</h2>
-
     <input
       type="text"
       [(ngModel)]="gameCode"
-      placeholder="           "
+      placeholder=""
       class="game-code-input"
     />
-
-    
-
     <button
       (click)="joinGame()"
       class="join-button"
@@ -21,4 +17,41 @@
       Join Game
     </button>
   </div>
+</div>
+
+<!-- STEP 2: Choose Profile -->
+<div class="profile-wrapper" *ngIf="showProfileStep && !isLoading">
+  <h2>Choose Your Profile</h2>
+  <input
+    type="text"
+    [(ngModel)]="username"
+    placeholder="Enter your username"
+    class="username-input"
+  />
+  <h3>Select Your Avatar</h3>
+  <div class="avatar-list">
+    <img
+      *ngFor="let avatar of avatars"
+      [src]="avatar"
+      (click)="selectAvatar(avatar)"
+      [class.selected]="avatar === selectedAvatar"
+      alt="avatar"
+    />
+  </div>
+  <div class="error" *ngIf="showError">
+    ⚠️ Please enter a username and choose an avatar.
+  </div>
+  <button
+    class="continue-button"
+    (click)="confirm()"
+    [disabled]="!username.trim() || !selectedAvatar"
+  >
+    Continue
+  </button>
+</div>
+
+<!-- STEP 3: Waiting Screen -->
+<div class="waiting-screen" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p class="waiting-text">Waiting for other players to join the game...</p>
 </div>
