@@ -17,7 +17,7 @@ import { GameLobbyComponent } from './Components/Game/game-lobby/game-lobby.comp
 import { GameSessionComponent } from './Components/Game/game-session/game-session.component';
 import { DisplayGameComponent } from './Components/Game/display-game/display-game.component';
 import { JoinGameComponent } from './Components/Game/join-game/join-game.component';
-import { ChooseProfileComponent } from './Components/Game/choose-profile/choose-profile.component';
+
 
 const routes: Routes = [
   {path:'Home', component:HomePageComponent},
@@ -30,8 +30,8 @@ const routes: Routes = [
   {path: 'Display-set-of-flashcard/:id', component: DisplaySetOfFlashcardsComponent, canActivate: [AuthGuard] }, 
   {path: 'GameLobby/:gameCode', component: GameLobbyComponent, canActivate: [AuthGuard] }, 
   {path: 'GameSession', component: GameSessionComponent, canActivate: [AuthGuard] }, 
-  {path:'Join', component: JoinGameComponent, canActivate: [AuthGuard]},
-  {path:'Profile', component: ChooseProfileComponent, canActivate: [AuthGuard]},
+  { path:'Join', component: JoinGameComponent, canActivate: [AuthGuard]},
+ 
 
   {path: 'game/:gameCode/play', component: DisplayGameComponent, canActivate: [AuthGuard] },
 
