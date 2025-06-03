@@ -1,86 +1,87 @@
-import { Component, OnInit } from '@angular/core';
-import { BgColors } from 'src/app/Models/BgColors';
-import { Category, getQuizCategories } from 'src/app/Models/enums/category.enum';
-
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FlashcardSetService } from 'src/app/Services/Flashcards/flashcardSet.service';
+import { QuizService } from 'src/app/Services/Quiz/quiz.service';
+import { Subject, forkJoin, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-flashcard',
   templateUrl: './search-flashcard.component.html',
   styleUrls: ['./search-flashcard.component.css'],
-  
 })
-export class SearchFlashcardComponent implements OnInit{
-  constructor(){}
-  categories : string[] = getQuizCategories()
+export class SearchFlashcardComponent implements OnInit, OnDestroy {
+  filterValue: string = '';
 
+  ownFlashcardSets: any[] = [];
+  publicFlashcardSets: any[] = [];
+  ownQuizzes: any[] = [];
+  publicQuizzes: any[] = [];
 
-  backgroundColor: { [key: string]: string } = {
-    AI: "#9a2e7b",           
-    Angular: "#b52e31",      
-    Blockchain: "#1d84cf",   
-    CMS: "#87CEEB",          
-    CloudComputing: "#9fabe8",
-    DataScience: "#a0a9ba", 
-    DevOps: "#b5daf2",      
-    Docker: "#039cfd",      
-    Git: "#f2f3f4",         
-    HTML: "#e46b48",        
-    iOS: "#caf2b5",         
-    Java: "#fff",           
-    JavaScript: "#f1e05a",     
-    Kubernetes: "#e1eafb",     
-    Linux: "#e1bd18",          
-    PHP: "#7587bf",            
-    Python: "#306998",         
-    Ruby: "#cc342d",           
-    Security: "#99c2a2",       
-    SQL: "#e0effe",            
-    Swift: "#ffac45",          
-    TypeScript: "#ff2ff",      
-    UXUI: "#5d5d5d",            
-    WordPress: "#1ca7db",       
-  };
+  loading: boolean = false;
+  error: string | null = null;
 
-  searchItem! : string;
+  private searchSubject = new Subject<string>();
+  private searchSubscription!: Subscription;
 
+  constructor(
+    private flashcardSetService: FlashcardSetService,
+    private quizService: QuizService
+  ) {}
 
-  async ngOnInit() {
-    this.searchItem = ''
-    this.categories =  getQuizCategories();
-  }
-
-  filterResults(text: string) {
-    if (text.trim() === '') {
-      this.categories = getQuizCategories();
-    } else {
-      this.categories = getQuizCategories().filter(
-        cat => cat.toLowerCase().includes(text.toLowerCase())
-      );
-    }
-  }
-  
-
-  get filteredCategories(): string[] {
-    return this.categories.filter(category => category.toLowerCase().includes(this.searchItem.toLowerCase()));
-  }
-  
-
-
-  getBackgroundColor(category: string): string {
-    const bgColors: Record<string, string> = BgColors;
-    const defaultColor = "#ffffff";
-    
-    const formattedCategory = category.replace(/\s/g, '').toLowerCase();
-    
-    for (const key in bgColors) {
-      if (bgColors.hasOwnProperty(key) && key.replace(/\s/g, '').toLowerCase() === formattedCategory) {
-        return bgColors[key];
+  ngOnInit(): void {
+    // Subscribe to the search subject and do live search
+    this.searchSubscription = this.searchSubject.pipe(
+      debounceTime(300),               // Wait 300ms pause in typing
+      distinctUntilChanged(),          // Only emit if value changed
+      tap(() => {
+        this.loading = true;
+        this.error = null;
+      }),
+      switchMap((searchTerm) => {
+        if (!searchTerm.trim()) {
+          // If empty input, load default visible items
+          return forkJoin({
+            flashcardSets: this.flashcardSetService.getVisibleFlashcardSets(),
+            quizzes: this.quizService.getVisibleQuizzes()
+          });
+        } else {
+          // Otherwise do search with filter
+          return forkJoin({
+            flashcardSets: this.flashcardSetService.searchFlashcardSetsSeparate(searchTerm),
+            quizzes: this.quizService.searchQuizzesSeparate(searchTerm)
+          });
+        }
+      })
+    ).subscribe({
+      next: ({ flashcardSets, quizzes }) => {
+        this.ownFlashcardSets = flashcardSets.ownSets ?? [];
+        this.publicFlashcardSets = flashcardSets.publicSets ?? [];
+        this.ownQuizzes = quizzes.ownQuizzes ?? [];
+        this.publicQuizzes = quizzes.publicQuizzes ?? [];
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Search failed. Please try again.';
+        this.loading = false;
       }
-    }
-  
-    return defaultColor;
+    });
+
+    // Initially load all visible items
+    this.searchSubject.next('');
   }
-  
-   
+
+  ngOnDestroy(): void {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+  }
+
+  // Called by the input (see template)
+  onFilterChange(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  const value = input.value;
+  this.filterValue = value;
+  this.searchSubject.next(value);
+}
+
 }

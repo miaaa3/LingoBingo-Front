@@ -22,8 +22,8 @@ export class RecentActivityService {
     return this.http.get(url);
   }
 
-  getRecentActivitiesForQuiz(quizId: number): Observable<any> {
-    const url = `${this.apiUrl}/quiz/${quizId}`;
+  getRecentActivitiesForQuiz(id: number): Observable<any> {
+    const url = `${this.apiUrl}/quiz/${id}`;
     return this.http.get(url);
   }
 

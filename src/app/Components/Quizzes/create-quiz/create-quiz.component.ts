@@ -1,7 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
-import { Difficulty, getDifficulties } from 'src/app/Models/enums/difficulty.enum';
-import { Category, getQuizCategories } from 'src/app/Models/enums/category.enum';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -16,24 +14,34 @@ export class CreateQuizComponent implements OnInit {
   difficulties: string[] = [];
   categories: string[] = [];
   numbers: number[] = [];
-  quizId:number = 28;
+  id: number = 28;
   quizForm!: FormGroup;
   questionsArray: AbstractControl[] = [];
+  imageFile: File | null = null; // Add this to store the image file
 
   constructor(
     private formBuilder: FormBuilder,
-    private api:RestApiService,
+    private api: RestApiService,
     private router: Router,
     private toastr: ToastrService,
   ) {}
 
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input && input.files) {
+      this.imageFile = input.files[0];
+    }
+  }
+  
+
+  // Method to add a new question
   addNewQuestion(): void {
     const questions = this.quizForm.get('questions') as FormArray;
     questions.push(this.formBuilder.group({
-      question: ['',Validators.required],
-      description: ['',Validators.required],
+      question: ['', Validators.required],
+      description: ['', Validators.required],
       answers: this.formBuilder.group({
-        A: ['',Validators.required],
+        A: ['', Validators.required],
         B: [''],
         C: [''],
         D: ['']
@@ -53,86 +61,60 @@ export class CreateQuizComponent implements OnInit {
     this.numbers.push(this.numbers.length + 1);
     this.questionsArray = (this.quizForm.get('questions') as FormArray).controls;
   }
-  
 
   ngOnInit(): void {
     this.numbers = [1];
-    this.categories = getQuizCategories();
-    this.difficulties = getDifficulties();
+    //this.categories = getQuizCategories();
+    //this.difficulties = getDifficulties();
 
     this.quizForm = this.formBuilder.group({
-      quizName: [''],
+      name: [''],
       category: [''],
       difficulty: [''],
       description: [''],
+      image: [''], // Add a field for the image
       questions: this.formBuilder.array([]),
     });
-    
+
     this.questionsArray = (this.quizForm.get('questions') as FormArray).controls;
-    
+
     this.addNewQuestion();
   }
 
   async onSubmit() {
     if (this.quizForm.valid) {
+      const formData = new FormData();
+      formData.append('name', this.quizForm.value.name);
+      formData.append('category', this.quizForm.value.category);
+      formData.append('difficulty', this.quizForm.value.difficulty);
+      formData.append('description', this.quizForm.value.description);
       
-      const formData = this.quizForm.value;
-
-      const lastIdResponse = await this.api.getLastId().toPromise();
-      this.quizId = lastIdResponse['quizId'];
-     
-      const quizObject = {
-        quizId: ++this.quizId,
-        quizName: formData.quizName,
-        category: formData.category,
-        difficulty: formData.difficulty.toUpperCase(),
-        questions: formData.questions.map((question: any) => {
-          const {
-            questionId,
-            question: qText,
-            description,
-            answers,
-            multipleCorrectAnswers,
-            correctAnswers,
-            explanation,
-            tip,
-            tags,
-            userAnswer
-          } = question;
+      // Append the image if there is one
+      if (this.imageFile) {
+        formData.append('image', this.imageFile, this.imageFile.name);
+      }
   
-          return {
-            questionId,
-            question: qText,
-            description,
-            answers,
-            multipleCorrectAnswers,
-            correctAnswers,
-            explanation,
-            tip,
-            tags,
-            userAnswer
-          };
-        }),
-      };
-      
-      await this.api.addQuiz(quizObject).subscribe(
-        res=>{
-          this.toastr.success('Quiz created successfully')          
+      const lastIdResponse = await this.api.getLastId().toPromise();
+      this.id = lastIdResponse['id'];
+  
+      // Push all questions to the form data as well
+      formData.append('questions', JSON.stringify(this.quizForm.value.questions));
+  
+      await this.api.addQuiz(formData).subscribe(
+        res => {
+          this.toastr.success('Quiz created successfully');
           setTimeout(() => {
-            this.router.navigate(['/Home'])
+            this.router.navigate(['/Home']);
           }, 2000);
-          
-          
         },
-        err=>{
-          this.toastr.error('Failed to create quiz.')
+        err => {
+          this.toastr.error('Failed to create quiz.');
         }
-      )
-      
-      
+      );
     }
   }
   
+
   isFixedHeaderVisible = false;
 
   @HostListener('window:scroll', [])
@@ -140,6 +122,7 @@ export class CreateQuizComponent implements OnInit {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     this.isFixedHeaderVisible = scrollPosition > 100;
   }
+
   onCheckboxChange(index: number): void {
     const answersArray = this.quizForm.get('answers') as FormArray;
     const answerControl = answersArray.at(index).get('isCorrect');
@@ -151,10 +134,8 @@ export class CreateQuizComponent implements OnInit {
     questions.removeAt(index);
     this.questionsArray = questions.controls;
   }
-  
 
   onQuestionDrop(event: CdkDragDrop<any[]>): void {
     moveItemInArray((this.quizForm.get('questions') as FormArray).controls, event.previousIndex, event.currentIndex);
   }
-  
 }

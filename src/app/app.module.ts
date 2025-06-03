@@ -20,12 +20,12 @@ import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgo
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr, ToastrModule } from 'ngx-toastr';
 import { CreateSetOfFlashcardsComponent } from './Components/Flashcards/Create-set-of-flashcards/create-set-of-flashcards.component';
-import { CategoryContentComponent } from './Components/Quizzes/category-content/category-content.component';
 import { AuthInterceptor } from './Helpers/auth.interceptor';
 import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flashcards/display-flashcards.component';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { DisplaySetOfFlashcardsComponent } from './Components/Flashcards/display-set-of-flashcards/display-set-of-flashcards.component';
 import { GameLobbyComponent } from './Components/Game/game-lobby/game-lobby.component';
+import { GameSessionComponent } from './Components/Game/game-session/game-session.component';
 
 
 
@@ -47,10 +47,10 @@ import { GameLobbyComponent } from './Components/Game/game-lobby/game-lobby.comp
     ResetPasswordComponent,
     ForgotPasswordComponent,
     CreateSetOfFlashcardsComponent,
-    CategoryContentComponent,
     DisplayFlashcardsComponent,
     DisplaySetOfFlashcardsComponent,
     GameLobbyComponent,
+    GameSessionComponent,
     
   
   ],

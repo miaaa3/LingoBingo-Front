@@ -1,12 +1,12 @@
-import { Difficulty } from "./enums/difficulty.enum";
-import { Category } from "./enums/category.enum";
 import { Flashcard } from "./flashcard";
+import { Game } from "./game/Game";
 
 export interface FlashcardSet {
   id?: number;
-  name: string;
-  category?: Category; 
-  difficulty?: Difficulty; 
+  name: string; 
   description: string;
   flashcards: Flashcard[]; 
+  createdAt?: Date;
+  games: Game[];
+  isPublic?: boolean; // Indicates if the set is public or private
 }
