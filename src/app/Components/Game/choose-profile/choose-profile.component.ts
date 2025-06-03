@@ -11,7 +11,6 @@ export class ChooseProfileComponent {
   selectedAvatar: string = '';
   showError: boolean = false;
   isLoading: boolean = false;
-  
 
   avatars: string[] = [];
 
