@@ -15,6 +15,7 @@ import { SearchFlashcardComponent } from './Components/Flashcards/search-flashca
 import { DisplaySetOfFlashcardsComponent } from './Components/Flashcards/display-set-of-flashcards/display-set-of-flashcards.component';
 import { GameLobbyComponent } from './Components/Game/game-lobby/game-lobby.component';
 import { GameSessionComponent } from './Components/Game/game-session/game-session.component';
+import { DisplayGameComponent } from './Components/Game/display-game/display-game.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,8 @@ const routes: Routes = [
   {path: 'Display-set-of-flashcard/:id', component: DisplaySetOfFlashcardsComponent, canActivate: [AuthGuard] }, 
   {path: 'GameLobby/:gameCode', component: GameLobbyComponent, canActivate: [AuthGuard] }, 
   {path: 'GameSession', component: GameSessionComponent, canActivate: [AuthGuard] }, 
+  {path: 'game/:gameCode/play', component: DisplayGameComponent, canActivate: [AuthGuard] },
+
 
 
 

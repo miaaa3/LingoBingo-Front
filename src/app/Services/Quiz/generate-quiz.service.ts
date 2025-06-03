@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { from, Observable, of } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
 import { QuizApiService } from './quiz-api.service';
-import { Question } from '../..//Models/question.model';
+import { Question } from '../../Models/quiz/question.model';
 
 
 @Injectable({

@@ -1,21 +1,37 @@
-import { FlashcardSet } from "../flashcard-set";
-import { User } from "../user.model";
+import { FlashcardService } from "src/app/Services/Flashcards/flashcard.service";
+import { Quiz } from "../quiz/quiz.model";
 import { Player } from "./Player";
-import { QuestionType } from "./QuestionType";
+import { User } from "../user.model";
+import { FlashcardSet } from "../flashcardSet/flashcard-set";
 
 export interface Game {
-  id: number;
-  createdBy: User;
-  createdAt: string;  // Use ISO string for dates in frontend
-  players: Player[];
+  id?: number;
+
+  // Reference to teacher user
+  createdBy?:User;
+  createdAt?: string; // ISO date string
+
+  // List of players in the game
+  players?: Player[];
+
+  // Optional flashcard set reference
   flashcardSet?: FlashcardSet;
-  questionType: QuestionType;
-  isActive: boolean;
+
+  // Optional quiz reference
+  quiz?: Quiz;
+  questionType?: 'TERM' | 'DEFINITION' | 'RANDOM';
+
+  isActive?: boolean;
+
   gameCode?: string;
 
-  // Since Java maps from Long to Integer/Long, in TS use Record with string keys (player IDs as strings)
-  playerScores: Record<string, number>;
-  playerFinishTimes: Record<string, number>;
+  playerScores?: { [playerId: number]: number };
+
+  playerFinishTimes?: { [playerId: number]: number };
+
+  playerQuestionIds?: { [playerId: number]: number[] };
+
+  playerCurrentQuestionIndex?: { [playerId: number]: number };
 
   numberOfQuestions: number;
 }

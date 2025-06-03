@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { Question } from './Models/question.model';
+import { Question } from './Models/quiz/question.model';
 import { GenerateQuizService } from './Services/Quiz/generate-quiz.service';
 import { LocalService } from './Services/Auth/local.service';
 import { QuizApiService } from './Services/Quiz/quiz-api.service';

@@ -1,5 +1,6 @@
+import { Game } from "../game/Game";
 import { Flashcard } from "./flashcard";
-import { Game } from "./game/Game";
+
 
 export interface FlashcardSet {
   id?: number;

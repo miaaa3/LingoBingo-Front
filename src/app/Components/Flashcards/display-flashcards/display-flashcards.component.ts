@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Flashcard } from 'src/app/Models/flashcard';
-import { FlashcardSet } from 'src/app/Models/flashcard-set';
+import { Flashcard } from 'src/app/Models/flashcardSet/flashcard';
+import { FlashcardSet } from 'src/app/Models/flashcardSet/flashcard-set';
 import { FlashcardSetService } from 'src/app/Services/Flashcards/flashcardSet.service';
 
 @Component({

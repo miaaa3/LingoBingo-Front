@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Flashcard } from 'src/app/Models/flashcard';
-import { FlashcardSet } from 'src/app/Models/flashcard-set';
+import { Flashcard } from 'src/app/Models/flashcardSet/flashcard';
+import { FlashcardSet } from 'src/app/Models/flashcardSet/flashcard-set';
 import { FlashcardSetService } from 'src/app/Services/Flashcards/flashcardSet.service';
 import { GameService } from 'src/app/Services/Game/game.service';
 
