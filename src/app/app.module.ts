@@ -15,7 +15,6 @@ import { CreateQuizComponent } from './Components/Quizzes/create-quiz/create-qui
 import { FooterComponent } from './Components/Home/footer/footer.component';
 import { LoginComponent } from './Components/Auth/login/login.component';
 import { RegisterComponent } from './Components/Auth/register/register.component';
-
 import { ResetPasswordComponent } from './Components/Auth/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgot-password.component';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
@@ -27,6 +26,7 @@ import { DisplayFlashcardsComponent } from './Components/Flashcards/display-flas
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { DisplaySetOfFlashcardsComponent } from './Components/Flashcards/display-set-of-flashcards/display-set-of-flashcards.component';
 import { GameLobbyComponent } from './Components/Game/game-lobby/game-lobby.component';
+
 
 
 
@@ -51,6 +51,7 @@ import { GameLobbyComponent } from './Components/Game/game-lobby/game-lobby.comp
     DisplayFlashcardsComponent,
     DisplaySetOfFlashcardsComponent,
     GameLobbyComponent,
+    
   
   ],
   imports: [
