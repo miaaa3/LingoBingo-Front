@@ -43,10 +43,11 @@ export class GameService {
    * Player joins a game using gameCode and username
    * POST /api/game/join
    */
-  joinGame(gameCode: string, username: string): Observable<string> {
+  joinGame(gameCode: string, username: string, avatarUrl:string): Observable<string> {
     const params = new HttpParams()
       .set('gameCode', gameCode)
-      .set('username', username);
+      .set('username', username)
+      .set('avatarUrl', avatarUrl);
 
     return this.http.post<string>(`${this.apiUrl}/join`, null, { params });
   }

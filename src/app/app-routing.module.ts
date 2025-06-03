@@ -30,8 +30,8 @@ const routes: Routes = [
   {path: 'Display-set-of-flashcard/:id', component: DisplaySetOfFlashcardsComponent, canActivate: [AuthGuard] }, 
   {path: 'GameLobby/:gameCode', component: GameLobbyComponent, canActivate: [AuthGuard] }, 
   {path: 'GameSession', component: GameSessionComponent, canActivate: [AuthGuard] }, 
-  { path:'Join', component: JoinGameComponent, canActivate: [AuthGuard]},
-  { path:'Profile', component: ChooseProfileComponent, canActivate: [AuthGuard]},
+  {path:'Join', component: JoinGameComponent, canActivate: [AuthGuard]},
+  {path:'Profile', component: ChooseProfileComponent, canActivate: [AuthGuard]},
 
   {path: 'game/:gameCode/play', component: DisplayGameComponent, canActivate: [AuthGuard] },
 
