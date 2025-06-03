@@ -26,6 +26,8 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { DisplaySetOfFlashcardsComponent } from './Components/Flashcards/display-set-of-flashcards/display-set-of-flashcards.component';
 import { GameLobbyComponent } from './Components/Game/game-lobby/game-lobby.component';
 import { GameSessionComponent } from './Components/Game/game-session/game-session.component';
+import { JoinGameComponent } from './Components/Game/join-game/join-game.component';
+import { ChooseProfileComponent } from './Components/Game/choose-profile/choose-profile.component';
 
 
 
@@ -51,6 +53,8 @@ import { GameSessionComponent } from './Components/Game/game-session/game-sessio
     DisplaySetOfFlashcardsComponent,
     GameLobbyComponent,
     GameSessionComponent,
+    JoinGameComponent,
+    ChooseProfileComponent,
     
   
   ],
