@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../Environments/environment';
 import { Game } from '../../Models/game/Game';
 import { Player } from '../../Models/game/Player';
+import { QuestionDTO } from 'src/app/Models/game/QuestionDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -15,24 +16,32 @@ export class GameService {
 
   /**
    * Create a new game
-   * Maps to POST /api/game/create
+   * POST /api/game/create
+   * Accepts optional flashcardSetId and quizId parameters
    */
   createGame(
     questionType: string,
     numberOfQuestions: number,
-    flashcardSetId: number
+    flashcardSetId?: number,
+    quizId?: number
   ): Observable<Game> {
-    const params = new HttpParams()
+    let params = new HttpParams()
       .set('questionType', questionType)
-      .set('numberOfQuestions', numberOfQuestions.toString())
-      .set('flashcardSetId', flashcardSetId.toString());
+      .set('numberOfQuestions', numberOfQuestions.toString());
+
+    if (flashcardSetId != null) {
+      params = params.set('flashcardSetId', flashcardSetId.toString());
+    }
+    if (quizId != null) {
+      params = params.set('quizId', quizId.toString());
+    }
 
     return this.http.post<Game>(`${this.apiUrl}/create`, null, { params });
   }
 
   /**
    * Player joins a game using gameCode and username
-   * Maps to POST /api/game/join
+   * POST /api/game/join
    */
   joinGame(gameCode: string, username: string): Observable<string> {
     const params = new HttpParams()
@@ -44,24 +53,24 @@ export class GameService {
 
   /**
    * Start the game
-   * Maps to POST /api/game/start/{gameId}
+   * POST /api/game/start/{gameId}
    */
   startGame(gameId: number): Observable<string> {
     return this.http.post<string>(`${this.apiUrl}/start/${gameId}`, null);
   }
 
   /**
-   * Check answer for a flashcard in the game
-   * Maps to POST /api/game/check/{gameId}
+   * Check answer for a question or flashcard in the game
+   * POST /api/game/check/{gameId}
    */
   checkAnswer(
     gameId: number,
-    flashcardId: number,
+    questionId: number,
     answer: string,
     playerId: number
   ): Observable<string> {
     const params = new HttpParams()
-      .set('flashcardId', flashcardId.toString())
+      .set('questionId', questionId.toString())
       .set('answer', answer)
       .set('playerId', playerId.toString());
 
@@ -69,16 +78,16 @@ export class GameService {
   }
 
   /**
-   * Finish game for a player
-   * Maps to POST /api/game/finish/{gameId}/{playerId}
+   * Mark game as finished for a player
+   * POST /api/game/finish/{gameId}/{playerId}
    */
   finishGame(gameId: number, playerId: number): Observable<string> {
     return this.http.post<string>(`${this.apiUrl}/finish/${gameId}/${playerId}`, null);
   }
 
   /**
-   * End the game and get leaderboard
-   * Maps to POST /api/game/end/{gameId}
+   * End the game and get the leaderboard
+   * POST /api/game/end/{gameId}
    */
   endGame(gameId: number): Observable<string> {
     return this.http.post<string>(`${this.apiUrl}/end/${gameId}`, null);
@@ -86,28 +95,38 @@ export class GameService {
 
   /**
    * Get all active games
-   * Maps to GET /api/game/active
+   * GET /api/game/active
    */
   getActiveGames(): Observable<Game[]> {
     return this.http.get<Game[]>(`${this.apiUrl}/active`);
   }
 
   /**
-   * Get game details by code
-   * Maps to GET /api/game/byCode/{gameCode}
+   * Get game details by game code
+   * GET /api/game/byCode/{gameCode}
    */
   getGameByCode(gameCode: string): Observable<Game> {
     return this.http.get<Game>(`${this.apiUrl}/byCode/${gameCode}`);
   }
 
   /**
-   * Get players in a game
-   * Maps to GET /api/game/players/{gameId}
+   * Get players in a specific game
+   * GET /api/game/players/{gameId}
    */
   getPlayersForGame(gameId: number): Observable<Player[]> {
     return this.http.get<Player[]>(`${this.apiUrl}/players/${gameId}`);
   }
-   getGameQRCode(gameCode: string): Observable<Blob> {
+
+  /**
+   * Get the QR code image (PNG) for the game
+   * GET /api/game/{gameCode}/qrcode
+   */
+  getGameQRCode(gameCode: string): Observable<Blob> {
     return this.http.get(`${this.apiUrl}/${gameCode}/qrcode`, { responseType: 'blob' });
+  }
+
+   // Fetch game questions based on the gameCode
+  getGameQuestions(gameCode: string): Observable<QuestionDTO[]> {
+    return this.http.get<QuestionDTO[]>(`${this.apiUrl}/game-questions/${gameCode}`);
   }
 }

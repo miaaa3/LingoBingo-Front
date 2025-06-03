@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from 'src/app/Services/Quiz/quiz.service';
-import { Quiz } from 'src/app/Models/quiz.model';
-import { Question } from 'src/app/Models/question.model';
-import { BgColors } from 'src/app/Models/BgColors';
+import { Question } from 'src/app/Models/quiz/question.model';
+import { Quiz } from 'src/app/Models/quiz/quiz.model';
 
 @Component({
   selector: 'app-display-quiz',
@@ -47,7 +46,7 @@ export class DisplayQuizComponent implements OnInit {
 
     // Check if the selected answer is correct
     if(selectedAnswer){
-          const isCorrect = this.checkAnswer(selectedAnswer, this.questions[this.currentQuestionIndex].correctAnswers);
+          const isCorrect = this.checkAnswer(selectedAnswer, this.questions[this.currentQuestionIndex].correctAnswer);
 
           // Update the correctAnswersCount
           if (isCorrect) {
@@ -73,36 +72,28 @@ export class DisplayQuizComponent implements OnInit {
     
   }
 
-  checkAnswer(selectedAnswer: string | null, correctAnswers: Map<string, boolean> | undefined): boolean {
-    // Check if both selectedAnswer and correctAnswers are not null or undefined
-    if (selectedAnswer !== null && selectedAnswer !== undefined && correctAnswers) {
-      const entries = Object.entries(correctAnswers);
-  
-      for (const [key, value] of entries) {
-        if (key === selectedAnswer && value === true) {
-          return true;
-        }
-      }
+  checkAnswer(selectedAnswer: string | null, correctAnswer: string | undefined): boolean {
+    if (selectedAnswer && correctAnswer) {
+      return selectedAnswer === correctAnswer;
     }
-      return false;
+    return false;
   }
-  
-  
-  
-  getBackgroundColor(category: string): string {
-    const bgColors: Record<string, string> = BgColors;
-    const defaultColor = "#ffffff";
+
     
-    const categoryLower = category.toLowerCase();
+  // getBackgroundColor(category: string): string {
+  //   const bgColors: Record<string, string> = any;
+  //   const defaultColor = "#ffffff";
+    
+  //   const categoryLower = category.toLowerCase();
   
-    for (const key in bgColors) {
-      if (key.toLowerCase() === categoryLower) {
-        return bgColors[key];
-      }
-    }
+  //   for (const key in bgColors) {
+  //     if (key.toLowerCase() === categoryLower) {
+  //       return bgColors[key];
+  //     }
+  //   }
   
-    return defaultColor;
-  }
+  //   return defaultColor;
+  // }
   
   // nextQuestion() {
   //   // Move to the next question

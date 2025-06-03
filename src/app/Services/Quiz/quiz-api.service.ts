@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 
 import { catchError, map, Observable, of, OperatorFunction } from 'rxjs';
-import { Question } from '../../Models/question.model'; 
+import { Question } from '../../Models/quiz/question.model'; 
 import { ApiEndPoints } from './api-endpoints.service';
 
 @Injectable({
