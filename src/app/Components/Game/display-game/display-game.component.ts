@@ -4,6 +4,8 @@ import { GameService } from 'src/app/Services/Game/game.service';
 import { Game } from 'src/app/Models/game/Game';
 import { QuestionDTO } from 'src/app/Models/game/QuestionDTO';
 import { Router } from '@angular/router';
+import { LocalService } from 'src/app/Services/Auth/local.service';
+import { User } from 'src/app/Models/user.model';
 
 @Component({
   selector: 'app-display-game',
@@ -16,6 +18,10 @@ export class DisplayGameComponent implements OnInit {
   questions: QuestionDTO[] = [];
   currentQuestionIndex: number = 0;
   correctAnswersCount: number = 0;
+  isTeacher:boolean = false;
+  userId='';
+  createdBy: User | null = null;
+
 
   // Track answer correctness
   isAnswerCorrect: boolean | null = null;
@@ -29,14 +35,35 @@ export class DisplayGameComponent implements OnInit {
     private route: ActivatedRoute,
     private gameService: GameService,
     private cdr: ChangeDetectorRef,
-    private router: Router // Inject Router for navigation
-  ) {}
+    private router: Router, // Inject Router for navigation
+    local:LocalService
+
+  ) {
+    
+    this.userId=local.getData('userid');
+
+  }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe((params) => {      
       this.gameCode = params['gameCode'];
+      this.getcreatedByGameCode()
+
       this.getGameById();
     });
+    setTimeout(() => {
+    
+    this.checkIfTeacher();
+    console.log(this.isTeacher);
+    
+      if (this.isTeacher) {
+        
+        this.router.navigate(['/leaderboard',this.gameCode])
+      }
+   
+    }, 1500);
+    
+    
   }
 
   getGameById() {
@@ -47,6 +74,20 @@ export class DisplayGameComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching game by ID:', error);
+      }
+    );
+  }
+
+  getcreatedByGameCode(){
+    this.gameService.getCreatedByByCode(this.gameCode).subscribe(
+      (user: User) => {
+        this.createdBy = user;
+        console.log(this.createdBy);
+        
+
+      },
+      (error) => {
+        console.error('Error fetching user by gamecode:', error);
       }
     );
   }
@@ -83,6 +124,9 @@ export class DisplayGameComponent implements OnInit {
         
         // Call backend to update the score
         const playerId = +localStorage.getItem('playerId')!; // Get playerId from localStorage
+
+        console.log(this.game!.id+" "+ playerId);
+        
         this.gameService.updateScore(this.game!.id, playerId).subscribe({
           next: (response) => {
             console.log('Score updated successfully:', response);
@@ -171,5 +215,15 @@ export class DisplayGameComponent implements OnInit {
       return 'bg-green-500'; // Correct answer: green background
     }
     return ''; // Default background if no conditions match
+  }
+
+
+
+  checkIfTeacher() {
+    console.log(this.userId);
+    
+    if (Number(this.userId) === this.createdBy.id) {
+      this.isTeacher = this.userId === String(this.createdBy.id); // Set isTeacher to true if the authenticated user is the teacher
+    }
   }
 }
