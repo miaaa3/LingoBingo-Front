@@ -50,23 +50,25 @@
   </div>
 
   <div class="flex w-3/4">
-    <!-- Players list -->
+    <!-- Players grid -->
     <div
       *ngIf="joinedPlayers.length > 0; else waitingTemplate"
-      class="w-fit h-fit max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 p-5 ml-4 players-list"
+      class="w-full max-w-4xl bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 p-5 ml-4"
     >
-      <div
-        *ngFor="let player of joinedPlayers"
-        class="flex flex-row justify-start gap-6 items-center mb-4"
-      >
-        <img
-          class="size-16 rounded-full shadow-lg object-cover"
-          src="/assets/images/Profile.jpg"
-          alt="{{ player }} image"
-        />
-        <h5 class="text-xl font-medium text-gray-900 dark:text-white">
-          {{ player }}
-        </h5>
+      <div class="grid grid-cols-4 gap-6">
+        <div
+          *ngFor="let player of joinedPlayers"
+          class="flex flex-row items-center justify-between p-3 text-center border shadow-md rounded-md"
+        >
+          <img
+            class="w-16 h-16 rounded-full  object-cover mb-2"
+            [src]="player.avatarUrl || '/assets/images/Profile.jpg'"
+            alt="{{ player.username }}'s avatar"
+          />
+          <h5 class="text-lg font-medium text-gray-900 dark:text-white">
+            {{ player.username }}
+          </h5>
+        </div>
       </div>
     </div>
 

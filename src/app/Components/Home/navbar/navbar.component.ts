@@ -39,7 +39,7 @@ export class NavbarComponent {
 
   logout(): void {
     this.local.removeData("userApiKey2");   
-    this.local.removeData("username");     
+    this.local.removeData("userid");     
   
     this.isUser.next(false); 
   }

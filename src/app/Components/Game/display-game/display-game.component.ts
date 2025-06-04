@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GameService } from 'src/app/Services/Game/game.service';
 import { Game } from 'src/app/Models/game/Game';
 import { QuestionDTO } from 'src/app/Models/game/QuestionDTO';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-game',
@@ -16,9 +17,19 @@ export class DisplayGameComponent implements OnInit {
   currentQuestionIndex: number = 0;
   correctAnswersCount: number = 0;
 
+  // Track answer correctness
+  isAnswerCorrect: boolean | null = null;
+  selectedAnswer: string | null = null;
+  correctAnswer: string | null = null;
+
+  // Letters for answer options display
+  letters = ['A', 'B', 'C', 'D'];
+
   constructor(
     private route: ActivatedRoute,
-    private gameService: GameService
+    private gameService: GameService,
+    private cdr: ChangeDetectorRef,
+    private router: Router // Inject Router for navigation
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +43,6 @@ export class DisplayGameComponent implements OnInit {
     this.gameService.getGameByCode(this.gameCode).subscribe(
       (game: Game) => {
         this.game = game;
-        // Fetch game questions based on game type
         this.fetchGameQuestions();
       },
       (error) => {
@@ -45,8 +55,9 @@ export class DisplayGameComponent implements OnInit {
     this.gameService.getGameQuestions(this.gameCode).subscribe(
       (questions: QuestionDTO[]) => {
         this.questions = questions;
+        // Initialize userAnswer to null for each question
         this.questions.forEach((question) => {
-          question.userAnswer = null; // Initialize userAnswer for each question
+          question.userAnswer = null;
         });
       },
       (error) => {
@@ -59,25 +70,78 @@ export class DisplayGameComponent implements OnInit {
     const selectedAnswer = this.questions[this.currentQuestionIndex].userAnswer;
 
     if (selectedAnswer) {
-      const isCorrect = this.checkAnswer(selectedAnswer, this.questions[this.currentQuestionIndex].correctAnswer);
+      this.selectedAnswer = selectedAnswer;
+      this.correctAnswer = this.questions[this.currentQuestionIndex].correctAnswer;
+      const isCorrect = this.checkAnswer(selectedAnswer, this.correctAnswer);
 
-      // Update the correctAnswersCount
+      // Update the isAnswerCorrect flag based on the user's answer
+      this.isAnswerCorrect = isCorrect;
+
+      // Increment score if answer is correct
       if (isCorrect) {
         this.correctAnswersCount++;
+        
+        // Call backend to update the score
+        const playerId = +localStorage.getItem('playerId')!; // Get playerId from localStorage
+        this.gameService.updateScore(this.game!.id, playerId).subscribe({
+          next: (response) => {
+            console.log('Score updated successfully:', response);
+          },
+          error: (err) => {
+            console.error('Error updating score:', err);
+          }
+        });
       }
 
-      // Move to the next question
-      this.currentQuestionIndex++;
+      // If the answer is incorrect, wait for 5 seconds before going to the next question
+      if (!isCorrect) {
+        setTimeout(() => {
+          this.moveToNextQuestion();
+        }, 5000); // Wait for 5 seconds before moving to the next question
+      } else {
+        this.moveToNextQuestion(); // Move to the next question immediately if the answer is correct
+      }
 
-      // Reset userAnswer for the next question
-      if (this.currentQuestionIndex < this.questions.length) {
-        this.questions[this.currentQuestionIndex].userAnswer = null;
+      // Check if all questions are answered (i.e., game finished)
+      if (this.currentQuestionIndex >= this.questions.length) {
+        this.endGame(); // End the game and redirect to leaderboard
       }
     }
   }
 
+  moveToNextQuestion() {
+    // Move to the next question
+    this.currentQuestionIndex++;
+
+    // If there are more questions, reset userAnswer for the next question
+    if (this.currentQuestionIndex < this.questions.length) {
+      this.questions[this.currentQuestionIndex].userAnswer = null;
+    }
+
+    // Reset the answer-related flags
+    this.isAnswerCorrect = null;
+    this.selectedAnswer = null;
+    this.correctAnswer = null;
+
+    // Manually trigger change detection
+    this.cdr.detectChanges();
+  }
+
+  endGame() {
+    // Call the backend to end the game
+    this.gameService.endGame(this.game!.id).subscribe({
+      next: () => {
+        console.log('Game ended successfully');
+        // Redirect to leaderboard page
+        this.router.navigate(['/leaderboard', this.gameCode]);
+      },
+      error: (err) => {
+        console.error('Error ending the game:', err);
+      }
+    });
+  }
+
   checkAnswer(selectedAnswer: string | null, correctAnswer: string): boolean {
-    // Check if the selected answer is correct
     return selectedAnswer === correctAnswer;
   }
 
@@ -87,13 +151,25 @@ export class DisplayGameComponent implements OnInit {
     return `${this.correctAnswersCount} out of ${totalQuestions} correct (${scorePercentage.toFixed(2)}%)`;
   }
 
-  // Helper method to check if the game is a quiz
   isQuizGame(): boolean {
     return this.game?.quiz != null;
   }
 
-  // Helper method to check if the game is a flashcard game
   isFlashcardGame(): boolean {
     return this.game?.flashcardSet != null;
+  }
+
+  // Helper function to style the answers based on correctness
+  getAnswerClass(answer: string): string {
+    if (this.isAnswerCorrect === null) return ''; // No answer selected yet
+
+    if (this.isAnswerCorrect && answer === this.correctAnswer) {
+      return 'bg-green-500'; // Correct answer: green background
+    } else if (this.isAnswerCorrect === false && answer === this.selectedAnswer) {
+      return 'bg-red-500'; // Incorrect answer: red background
+    } else if (answer === this.correctAnswer) {
+      return 'bg-green-500'; // Correct answer: green background
+    }
+    return ''; // Default background if no conditions match
   }
 }
