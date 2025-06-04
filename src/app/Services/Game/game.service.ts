@@ -5,6 +5,7 @@ import { environment } from '../../Environments/environment';
 import { Game } from '../../Models/game/Game';
 import { Player } from '../../Models/game/Player';
 import { QuestionDTO } from 'src/app/Models/game/QuestionDTO';
+import { User } from 'src/app/Models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -113,6 +114,14 @@ export class GameService {
     return this.http.get<Game>(`${this.apiUrl}/byCode/${gameCode}`);
   }
 
+   /**
+   * Get game details by game code
+   * GET /api/game/byCode/{gameCode}
+   */
+   getCreatedByByCode(gameCode: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/createdBy/${gameCode}`);
+  }
+
   /**
    * Get players in a specific game
    * GET /api/game/players/{gameId}
@@ -136,7 +145,7 @@ export class GameService {
 
   updateScore(gameId: number, playerId: number): Observable<any> {
     const params = new HttpParams()
-      .set('playerId', playerId.toString())
+      .set('playerId', playerId)
 
     return this.http.post(`${this.apiUrl}/updateScore/${gameId}`, null, { params });
   }

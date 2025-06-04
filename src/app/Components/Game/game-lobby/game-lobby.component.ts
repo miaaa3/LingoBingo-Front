@@ -7,6 +7,7 @@ import { Player } from 'src/app/Models/game/Player';
 import { User } from 'src/app/Models/user.model'; // Assuming you have a User model
 import { AuthenticationService } from 'src/app/Services/Auth/authentication.service';
 import { Game } from 'src/app/Models/game/Game';
+import { LocalService } from 'src/app/Services/Auth/local.service';
 
 @Component({
   selector: 'app-game-lobby',
@@ -26,24 +27,32 @@ export class GameLobbyComponent implements OnInit, OnDestroy {
   playerId!: number;
   authenticatedUser: User | null = null;
   isTeacher: boolean = false ; // Flag to check if the user is the teacher
+  userId='';
 
   constructor(
     private router: Router,
+    local:LocalService,
     private route: ActivatedRoute,
     private gameService: GameService,
     private toastr: ToastrService,
     private authService: AuthenticationService  // Inject AuthenticationService
-  ) {}
+  ) {
+    this.userId=local.getData('userid');
+
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.gameCode = params['gameCode'];
-      this.playerId = +params['playerId']; // Get playerId from URL queryParams
+      this.playerId = +params['playerId'];
+      this.checkIfTeacher(); // Get playerId from URL queryParams
       this.loadGameDetails();
       this.loadQRCode();
       this.startPlayersPolling();
+      setTimeout(() => {
       this.startGameActivePolling();
-      this.checkIfTeacher();  // Check if the authenticated user is the teacher
+      }, 2000);
+        // Check if the authenticated user is the teacher
     });
   }
 
@@ -133,8 +142,8 @@ export class GameLobbyComponent implements OnInit, OnDestroy {
   }
 
   checkIfTeacher() {
-    if (Number(localStorage.getItem('userid')) === this.game?.createdBy?.id) {
-      this.isTeacher = String(localStorage.getItem('userid')) === String(this.game?.createdBy?.id); // Set isTeacher to true if the authenticated user is the teacher
+    if (Number(this.userId) === this.game?.createdBy?.id) {
+      this.isTeacher = String(this.userId) === String(this.game?.createdBy?.id); // Set isTeacher to true if the authenticated user is the teacher
     }
   }
 }

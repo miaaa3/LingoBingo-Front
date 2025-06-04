@@ -60,11 +60,12 @@ export class LoginComponent implements OnInit {
   
         // Save token locally
         this.local.saveData("userApiKey2", res['access_token'] );
-        this.local.saveData("userid", res['id']);
+        this.local.saveData("userid", res['id'].toString());
   
         // Save user data if it's included in response
         this.api.user = res['user'];
-  
+        
+        
         // Success toast
         this.toastr.success('Logged in successfully.', 'Success');
   

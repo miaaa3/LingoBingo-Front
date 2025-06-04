@@ -31,9 +31,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.gameCode = params['gameCode'];
+      
       this.playerId = params['playerId'];
       this.loadGameDetails();
-      this.startPolling();
+
+      setTimeout(() => {
+        this.startPolling();
+      }, 1000);
+      
     });
   }
 
@@ -45,6 +50,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     this.gameService.getGameByCode(this.gameCode).subscribe({
       next: (game) => {
         this.gameId = game.id;
+        
       },
       error: (err) => {
         this.toastr.error('Failed to load game details');
@@ -56,9 +62,11 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   startPolling() {
     // Poll every 5 seconds to get player progress in real-time
     this.pollingSubscription = timer(0, 5000).subscribe(() => {
+      
       this.gameService.getPlayersForGame(this.gameId).subscribe({
         next: (players) => {
           this.joinedPlayers = players;
+          this.joinedPlayers.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
           if (this.checkIfGameEnded()) {
             this.gameEnded = true;
             this.finalLeaderboard = this.generateLeaderboard();
@@ -70,6 +78,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       });
     });
   }
+  
 
   checkIfGameEnded(): boolean {
     // Check if all players have finished (assuming players have a 'finished' property)
