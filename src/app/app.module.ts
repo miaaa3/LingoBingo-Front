@@ -28,6 +28,8 @@ import { GameLobbyComponent } from './Components/Game/game-lobby/game-lobby.comp
 import { GameSessionComponent } from './Components/Game/game-session/game-session.component';
 import { JoinGameComponent } from './Components/Game/join-game/join-game.component';
 import { DisplayGameComponent } from './Components/Game/display-game/display-game.component';
+import { ChooseProfileComponent } from './Components/Game/choose-profile/choose-profile.component';
+import { LeaderboardComponent } from './Components/Game/leaderboard/leaderboard.component';
 
 
 
@@ -55,8 +57,10 @@ import { DisplayGameComponent } from './Components/Game/display-game/display-gam
     GameSessionComponent,
     JoinGameComponent,
     DisplayGameComponent,
-
-
+    ChooseProfileComponent,
+    LeaderboardComponent,
+    
+  
   ],
   imports: [
     BrowserModule,

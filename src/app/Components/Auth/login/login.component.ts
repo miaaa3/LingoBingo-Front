@@ -55,9 +55,12 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(
       res => {
         console.log(res['access_token']);
+        console.log(res['id']);
+
   
         // Save token locally
-        this.local.saveData("userApiKey2", res['access_token']);
+        this.local.saveData("userApiKey2", res['access_token'] );
+        this.local.saveData("userid", res['id']);
   
         // Save user data if it's included in response
         this.api.user = res['user'];

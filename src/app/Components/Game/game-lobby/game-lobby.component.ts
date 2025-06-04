@@ -3,6 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GameService } from 'src/app/Services/Game/game.service';
 import { Subscription, timer } from 'rxjs';
+import { Player } from 'src/app/Models/game/Player';
+import { User } from 'src/app/Models/user.model'; // Assuming you have a User model
+import { AuthenticationService } from 'src/app/Services/Auth/authentication.service';
+import { Game } from 'src/app/Models/game/Game';
 
 @Component({
   selector: 'app-game-lobby',
@@ -10,41 +14,51 @@ import { Subscription, timer } from 'rxjs';
   styleUrls: ['./game-lobby.component.css']
 })
 export class GameLobbyComponent implements OnInit, OnDestroy {
-  joinedPlayers: string[] = [];
+  joinedPlayers: Player[] = [];
+  game: Game | null = null; // Store the game details
   gameCode!: string;
-  gameId!: number; // if you get this from game details
+  gameId!: number;
   gameDetailsSubscription!: Subscription;
   playersSubscription!: Subscription;
   pollingSubscription!: Subscription;
+  gameActivePollingSubscription!: Subscription;
   qrCodeUrl: string | null = null;
+  playerId!: number;
+  authenticatedUser: User | null = null;
+  isTeacher: boolean = false ; // Flag to check if the user is the teacher
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private gameService: GameService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthenticationService  // Inject AuthenticationService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.gameCode = params['gameCode'];
+      this.playerId = +params['playerId']; // Get playerId from URL queryParams
       this.loadGameDetails();
       this.loadQRCode();
       this.startPlayersPolling();
+      this.startGameActivePolling();
+      this.checkIfTeacher();  // Check if the authenticated user is the teacher
     });
   }
 
   ngOnDestroy(): void {
-    if (this.gameDetailsSubscription) this.gameDetailsSubscription.unsubscribe();
-    if (this.playersSubscription) this.playersSubscription.unsubscribe();
-    if (this.pollingSubscription) this.pollingSubscription.unsubscribe();
+    this.gameDetailsSubscription?.unsubscribe();
+    this.playersSubscription?.unsubscribe();
+    this.pollingSubscription?.unsubscribe();
+    this.gameActivePollingSubscription?.unsubscribe();
   }
 
   loadGameDetails() {
     this.gameDetailsSubscription = this.gameService.getGameByCode(this.gameCode).subscribe({
       next: (game) => {
+        this.game = game;
         this.gameId = game.id;
-        // Optionally update UI with other game info
       },
       error: (err) => {
         this.toastr.error('Failed to load game details');
@@ -54,17 +68,17 @@ export class GameLobbyComponent implements OnInit, OnDestroy {
   }
 
   startPlayersPolling() {
-    // Poll every 5 seconds to refresh joined players list
     this.pollingSubscription = timer(0, 5000).subscribe(() => {
-      this.gameService.getPlayersForGame(this.gameId).subscribe({
-        next: (players) => {
-          // Assuming players is an array of objects with username property
-          this.joinedPlayers = players.map(p => p.username);
-        },
-        error: (err) => {
-          console.error('Failed to fetch players:', err);
-        }
-      });
+      if (this.gameId) {
+        this.gameService.getPlayersForGame(this.gameId).subscribe({
+          next: (players: Player[]) => {
+            this.joinedPlayers = players;
+          },
+          error: (err) => {
+            console.error('Failed to fetch players:', err);
+          }
+        });
+      }
     });
   }
 
@@ -79,13 +93,34 @@ export class GameLobbyComponent implements OnInit, OnDestroy {
     });
   }
 
+  startGameActivePolling() {
+    this.gameActivePollingSubscription = timer(0, 3000).subscribe(() => {
+      if (this.gameId) {
+        this.gameService.getGameByCode(this.gameCode).subscribe({
+          next: (game) => {
+            if (game.isActive) {
+              // Game started, navigate based on user role
+              if (this.isTeacher) {
+                this.router.navigate(['/leaderboard', this.gameCode]);
+              } else {
+                this.router.navigate(['/game', this.gameCode, 'play'], { queryParams: { playerId: this.playerId } });
+              }
+              this.gameActivePollingSubscription.unsubscribe();
+            }
+          },
+          error: (err) => {
+            console.error('Failed to check game active status:', err);
+          }
+        });
+      }
+    });
+  }
+
   startGame() {
     if (this.joinedPlayers.length >= 2) {
       this.gameService.startGame(this.gameId).subscribe({
         next: () => {
           this.toastr.success('Game started!');
-          // Navigate to the actual game screen or update UI accordingly
-          this.router.navigate(['/game', this.gameCode, 'play']);
         },
         error: (err) => {
           this.toastr.error('Failed to start the game.');
@@ -94,6 +129,12 @@ export class GameLobbyComponent implements OnInit, OnDestroy {
       });
     } else {
       this.toastr.warning('At least 2 players are required to start the game.');
+    }
+  }
+
+  checkIfTeacher() {
+    if (Number(localStorage.getItem('userid')) === this.game?.createdBy?.id) {
+      this.isTeacher = String(localStorage.getItem('userid')) === String(this.game?.createdBy?.id); // Set isTeacher to true if the authenticated user is the teacher
     }
   }
 }

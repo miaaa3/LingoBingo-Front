@@ -1,0 +1,33 @@
+<section class="bg-gray-100 p-6">
+  <div class="container mx-auto max-w-4xl">
+    <div class="text-center mb-6">
+      <h2 class="text-3xl font-bold text-gray-900">Live Game Leaderboard</h2>
+      <p class="text-lg text-gray-500">Leaderboard updates every 5 seconds.</p>
+    </div>
+
+    <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+      <table class="min-w-full table-auto">
+        <thead>
+          <tr class="bg-gray-200 text-left">
+            <th class="px-4 py-2 font-medium text-gray-700">Rank</th>
+            <th class="px-4 py-2 font-medium text-gray-700">Player</th>
+            <th class="px-4 py-2 font-medium text-gray-700">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through leaderboard players -->
+          <tr *ngFor="let player of finalLeaderboard" class="border-b hover:bg-gray-100">
+            <td class="px-4 py-2 text-gray-800">{{ player.rank }}</td>
+            <td class="px-4 py-2 text-gray-800">{{ player.name }}</td>
+            <td class="px-4 py-2 text-gray-800">{{ player.score }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Real-time update text -->
+    <div class="mt-6 text-center" *ngIf="gameEnded">
+      <p class="text-lg font-semibold text-gray-600">Leaderboard is updating...</p>
+    </div>
+  </div>
+</section>

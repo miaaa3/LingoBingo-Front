@@ -1,4 +1,4 @@
 export const environment = {
-    apiUrl: 'http://localhost:8081/api',
-    enableDebug: false
-  };
+  apiUrl: 'http://10.192.138.232:8081/api',  // Replace localhost with your computer's IP address
+  enableDebug: false
+};

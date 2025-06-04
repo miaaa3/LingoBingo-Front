@@ -9,28 +9,27 @@
         <h3>{{ questions[currentQuestionIndex].questionText }}</h3>
       </div>
       
-      <!-- Display answers for Quiz -->
-      <div *ngIf="isQuizGame()">
+      <!-- Display answers  -->
+      <div >
         <div class="grid grid-cols-2 justify-between p-2 gap-3">
           <label
-            class="flex p-3 gap-3 border-[1.5px] rounded-lg cursor-pointer items-baseline my-2"
-            *ngFor="let entry of questions[currentQuestionIndex].options | keyvalue">
+            class="flex p-2 gap-3 border-[1.5px] rounded-lg cursor-pointer items-baseline my-2 min-w-fit"
+            *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
+            [attr.for]="'option' + i"
+            [ngClass]="getAnswerClass(option)">
+
             <input
               type="radio"
               [(ngModel)]="questions[currentQuestionIndex].userAnswer"
-              [value]="entry.key">
-            <h1 class="font-bold">{{ entry.key }}</h1> - {{ entry.value }}
+              [value]="option"
+              [id]="'option' + i"
+              name="questionOptions"
+            />
+            <h1 class="font-bold">{{ letters[i] }}</h1> - {{ option }}
           </label>
         </div>
       </div>
 
-      <!-- Display flashcards -->
-      <div *ngIf="isFlashcardGame()">
-        <div class="flex justify-center gap-5">
-          <h3>{{ questions[currentQuestionIndex].questionText }}</h3>
-          <p class="font-normal text-lg">{{ questions[currentQuestionIndex].correctAnswer }}</p>
-        </div>
-      </div>
 
       <!-- Submit button -->
       <div class="flex justify-between text-base hover:bg-blue-400 p-2 bg-blue-600 text-white rounded-lg">

@@ -43,22 +43,25 @@ export class GameService {
    * Player joins a game using gameCode and username
    * POST /api/game/join
    */
-  joinGame(gameCode: string, username: string, avatarUrl:string): Observable<string> {
-    const params = new HttpParams()
-      .set('gameCode', gameCode)
-      .set('username', username)
-      .set('avatarUrl', avatarUrl);
+ joinGame(gameCode: string, username: string, avatarUrl: string): Observable<Player> {
+  const params = new HttpParams()
+    .set('gameCode', gameCode)
+    .set('username', username)
+    .set('avatarUrl', avatarUrl);
 
-    return this.http.post<string>(`${this.apiUrl}/join`, null, { params });
-  }
+  return this.http.post<Player>(`${this.apiUrl}/join`, null, { params });
+}
+
+
 
   /**
    * Start the game
    * POST /api/game/start/{gameId}
    */
   startGame(gameId: number): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/start/${gameId}`, null);
-  }
+  return this.http.post(`${this.apiUrl}/start/${gameId}`, null, { responseType: 'text' });
+}
+
 
   /**
    * Check answer for a question or flashcard in the game
@@ -129,5 +132,12 @@ export class GameService {
    // Fetch game questions based on the gameCode
   getGameQuestions(gameCode: string): Observable<QuestionDTO[]> {
     return this.http.get<QuestionDTO[]>(`${this.apiUrl}/game-questions/${gameCode}`);
+  }
+
+  updateScore(gameId: number, playerId: number): Observable<any> {
+    const params = new HttpParams()
+      .set('playerId', playerId.toString())
+
+    return this.http.post(`${this.apiUrl}/updateScore/${gameId}`, null, { params });
   }
 }
